@@ -14,6 +14,5 @@ FOUNDATION_EXPORT double CallWithDoxDialerVersionNumber;
 //! Project version string for CallWithDoxDialer.
 FOUNDATION_EXPORT const unsigned char CallWithDoxDialerVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <CallWithDoxDialer/PublicHeader.h>
-
+#import <CallWithDoxDialer/DoxDialerCaller.h>
 
