@@ -22,6 +22,19 @@
 #pragma mark - Implementaion -
 @implementation DoxDialerCaller
 
+#pragma mark Shared Instance
+
++(id _Nonnull)shared {
+    static dispatch_once_t p = 0;
+    __strong static id _sharedObject = nil;
+    
+    dispatch_once(&p, ^{
+        _sharedObject = [[self alloc] init];
+    });
+    
+    return _sharedObject;
+}
+
 
 #pragma mark Lazy Properties
 

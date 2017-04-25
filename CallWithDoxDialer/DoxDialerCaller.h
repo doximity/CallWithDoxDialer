@@ -10,6 +10,8 @@
 
 @interface DoxDialerCaller : NSObject
 
++(id _Nonnull)shared;
+
 -(void)dialPhoneNumber:(nonnull NSString *)phoneNumber;
 
 @end
