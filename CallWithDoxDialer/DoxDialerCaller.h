@@ -7,11 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface DoxDialerCaller : NSObject
 
 +(id _Nonnull)shared;
 
 -(void)dialPhoneNumber:(nonnull NSString *)phoneNumber;
+
+-(nonnull UIImage *)dialerIcon;
+-(nonnull UIImage *)dialerIconAsTemplate;
+-(nonnull UIImage *)dialerIconInColor:(nonnull UIColor *)color;
+
 
 @end

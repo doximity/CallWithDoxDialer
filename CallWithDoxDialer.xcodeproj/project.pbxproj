@@ -10,6 +10,7 @@
 		635F58F61EAFE3730072DE45 /* CallWithDoxDialer.h in Headers */ = {isa = PBXBuildFile; fileRef = 635F58F41EAFE3730072DE45 /* CallWithDoxDialer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		635F58FE1EAFE40C0072DE45 /* DoxDialerCaller.h in Headers */ = {isa = PBXBuildFile; fileRef = 635F58FC1EAFE40C0072DE45 /* DoxDialerCaller.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		635F58FF1EAFE40C0072DE45 /* DoxDialerCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 635F58FD1EAFE40C0072DE45 /* DoxDialerCaller.m */; };
+		639266DB1EB298BF00D94004 /* CallWithDoxDialer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 639266DA1EB298BF00D94004 /* CallWithDoxDialer.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +19,7 @@
 		635F58F51EAFE3730072DE45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		635F58FC1EAFE40C0072DE45 /* DoxDialerCaller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoxDialerCaller.h; sourceTree = "<group>"; };
 		635F58FD1EAFE40C0072DE45 /* DoxDialerCaller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoxDialerCaller.m; sourceTree = "<group>"; };
+		639266DA1EB298BF00D94004 /* CallWithDoxDialer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CallWithDoxDialer.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 				635F58FC1EAFE40C0072DE45 /* DoxDialerCaller.h */,
 				635F58FD1EAFE40C0072DE45 /* DoxDialerCaller.m */,
 				635F58F51EAFE3730072DE45 /* Info.plist */,
+				639266DA1EB298BF00D94004 /* CallWithDoxDialer.bundle */,
 			);
 			path = CallWithDoxDialer;
 			sourceTree = "<group>";
@@ -129,6 +132,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				639266DB1EB298BF00D94004 /* CallWithDoxDialer.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

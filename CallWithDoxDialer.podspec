@@ -14,9 +14,8 @@ Pod::Spec.new do |s|
   s.license      = { :type => "Unlicense", :file => "LICENSE.MD" }
   s.author       = { "Atai Barkai" => "abarkai@doximity.com" }
   s.platform     = :ios, "8.0"
-  s.source       = { :git => "https://github.com/doximity/CallWithDoxDialer.git", :tag => "v#{s.version}" }
-  s.source_files  = "CallWithDoxDialer", "CallWithDoxDialer/**/*.{h,m}"
-  s.public_header_files = "CallWithDoxDialer/**/*.h"
-  s.resources = "Resources/*.png"
-  s.framework  = "UIKit"
+  # s.source       = { :git => "https://github.com/doximity/CallWithDoxDialer.git", :tag => "v#{s.version}" }
+  s.source       = { :git => "https://github.com/doximity/CallWithDoxDialer.git", :tag => "v#{s.version}_BundleWithImage" }
+  s.source_files  = "CallWithDoxDialer/**/*.{h,m}"
+  s.resource = 'CallWithDoxDialer/CallWithDoxDialer.bundle'
 end
