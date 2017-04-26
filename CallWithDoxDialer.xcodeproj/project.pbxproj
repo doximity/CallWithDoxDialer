@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		635F58F61EAFE3730072DE45 /* CallWithDoxDialer.h in Headers */ = {isa = PBXBuildFile; fileRef = 635F58F41EAFE3730072DE45 /* CallWithDoxDialer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		635F58FE1EAFE40C0072DE45 /* DoxDialerCaller.h in Headers */ = {isa = PBXBuildFile; fileRef = 635F58FC1EAFE40C0072DE45 /* DoxDialerCaller.h */; };
+		635F58FE1EAFE40C0072DE45 /* DoxDialerCaller.h in Headers */ = {isa = PBXBuildFile; fileRef = 635F58FC1EAFE40C0072DE45 /* DoxDialerCaller.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		635F58FF1EAFE40C0072DE45 /* DoxDialerCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 635F58FD1EAFE40C0072DE45 /* DoxDialerCaller.m */; };
 /* End PBXBuildFile section */
 
@@ -299,6 +299,7 @@
 				635F58FB1EAFE3730072DE45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
