@@ -47,7 +47,10 @@
 
 -(nonnull NSURL *)openDialerInAppStoreURL {
     if(!_openDialerInAppStoreURL) {
-        _openDialerInAppStoreURL = nil;
+        NSString *appIdentifyingName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+        
+        _openDialerInAppStoreURL = [NSURL URLWithString:
+                                    [NSString stringWithFormat:@"https://app.appsflyer.com/id1157770564?pid=third_party_app&c=%@", appIdentifyingName]];
     }
     return _openDialerInAppStoreURL;
 }
