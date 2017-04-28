@@ -23,7 +23,7 @@
 #pragma mark - Publically Available Properties / Methods -
 
 #pragma mark Shared Instance Generator
-+(id _Nonnull)shared {
++(instancetype _Nonnull)shared {
     static dispatch_once_t p = 0;
     __strong static id _sharedObject = nil;
     

@@ -19,7 +19,7 @@
 
  @return The shared `DoxDialerCaller` instance
  */
-+(id _Nonnull)shared;
++(instancetype _Nonnull)shared;
 
 
 /**
@@ -33,9 +33,9 @@
  
  @param phoneNumber The phone number to dial, as a String. It may be given
  in most reasonable formats, e.g.:
-    - using numbers only: 6502333444
-    - formatted: (650)233-3444
-    - with a leading international area code: +1(650)233-3444
+ - using numbers only: 6502333444
+ - formatted: (650)233-3444
+ - with a leading international area code: +1(650)233-3444
  */
 -(void)dialPhoneNumber:(nonnull NSString *)phoneNumber;
 
