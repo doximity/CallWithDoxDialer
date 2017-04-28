@@ -72,16 +72,6 @@
 }
 
 
-/**
- Generates the dialer icon using the given color.
- This call is relatively expensive, so if you expect to make it many times
- (e.g. for each cell in a table), consider the following alternatives:
- - cache the returned image for a color you expect to reuse.
- - use `dialerIconAsTemplate` along with a (reused) tinted view.
- 
- @param color The color to fill the icon.
- @return The Doximity Dialer icon, filled with the given color.
- */
 -(nonnull UIImage *)dialerIconInColor:(nonnull UIColor *)color {
     UIImage *returned;
     UIImage *templateImage = self.dialerIconAsTemplate;
@@ -109,7 +99,7 @@
 
 -(nonnull NSURL *)openDialerInAppStoreURL {
     if(!_openDialerInAppStoreURL) {
-        NSString *appIdentifyingName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+        NSString *appIdentifyingName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] ?: @"Unknown";
         
         _openDialerInAppStoreURL = [NSURL URLWithString:
                                     [NSString stringWithFormat:@"https://app.appsflyer.com/id1157770564?pid=third_party_app&c=%@", appIdentifyingName]];
