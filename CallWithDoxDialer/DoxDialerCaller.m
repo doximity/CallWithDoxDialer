@@ -72,21 +72,6 @@
 }
 
 
--(nonnull UIImage *)dialerIconInColor:(nonnull UIColor *)color {
-    UIImage *returned;
-    UIImage *templateImage = self.dialerIconAsTemplate;
-    
-    UIGraphicsBeginImageContextWithOptions(templateImage.size, NO, templateImage.scale);
-    [color set];
-    [self.dialerIconAsTemplate drawInRect:CGRectMake(0, 0, templateImage.size.width, templateImage.size.height)];
-    returned = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return returned;
-}
-
-
-
 #pragma mark - Private Internal Properties -
 
 #pragma mark Lazy Properties
