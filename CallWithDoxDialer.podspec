@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
                   Doximity's Dialer app lets healthcare professionals make
                   phone calls to patients while on the go -- without revealing personal phone numbers.
                   Calls are routed through Doximity's HIPPA-compliant bridge lines,
-                  and are presented to recepients as if they originated from one's office phone number.
+                  and are presented to recipients as if they originated from one's office phone number.
 
                   This µLibrary lets 3rd-party apps easily initiate calls through the Doximity Dialer app.
                    DESC

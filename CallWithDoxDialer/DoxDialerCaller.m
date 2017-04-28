@@ -23,7 +23,7 @@
 #pragma mark - Publically Available Properties / Methods -
 
 #pragma mark Shared Instance Generator
-+(id _Nonnull)shared {
++(instancetype _Nonnull)shared {
     static dispatch_once_t p = 0;
     __strong static id _sharedObject = nil;
     
@@ -72,7 +72,6 @@
 }
 
 
-
 #pragma mark - Private Internal Properties -
 
 #pragma mark Lazy Properties
@@ -85,7 +84,7 @@
 
 -(nonnull NSURL *)openDialerInAppStoreURL {
     if(!_openDialerInAppStoreURL) {
-        NSString *appIdentifyingName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+        NSString *appIdentifyingName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] ?: @"Unknown";
         
         _openDialerInAppStoreURL = [NSURL URLWithString:
                                     [NSString stringWithFormat:@"https://app.appsflyer.com/id1157770564?pid=third_party_app&c=%@", appIdentifyingName]];
