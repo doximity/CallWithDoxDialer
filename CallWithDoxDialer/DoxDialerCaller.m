@@ -41,10 +41,10 @@
         NSString *urlEscapedPhoneNumber = [phoneNumber stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
         NSURL *launchDialerURL = [NSURL URLWithString:[NSString stringWithFormat:@"/call?targetNumber=%@", urlEscapedPhoneNumber]
                                         relativeToURL:self.dialerSchemeURL];
-        [UIApplication.sharedApplication openURL:launchDialerURL];
+        [self openURL:launchDialerURL];
     }
     else {
-        [UIApplication.sharedApplication openURL:self.openDialerInAppStoreURL];
+        [self openURL:self.openDialerInAppStoreURL];
     }
 }
 
@@ -98,7 +98,21 @@
 }
 
 
+-(void)openURL:(NSURL *)url {
+    
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL: options: completionHandler:)]) {
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+    }
+    else if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:)]){
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        [[UIApplication sharedApplication] openURL:url];
+#pragma clang diagnostic pop
 
+    }
+    
+    
+}
 
 
 
