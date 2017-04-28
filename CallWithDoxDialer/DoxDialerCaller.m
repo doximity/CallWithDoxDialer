@@ -72,30 +72,6 @@
 }
 
 
-/**
- Generates the dialer icon using the given color.
- This call is relatively expensive, so if you expect to make it many times
- (e.g. for each cell in a table), consider the following alternatives:
- - cache the returned image for a color you expect to reuse.
- - use `dialerIconAsTemplate` along with a (reused) tinted view.
- 
- @param color The color to fill the icon.
- @return The Doximity Dialer icon, filled with the given color.
- */
--(nonnull UIImage *)dialerIconInColor:(nonnull UIColor *)color {
-    UIImage *returned;
-    UIImage *templateImage = self.dialerIconAsTemplate;
-    
-    UIGraphicsBeginImageContextWithOptions(templateImage.size, NO, templateImage.scale);
-    [color set];
-    [self.dialerIconAsTemplate drawInRect:CGRectMake(0, 0, templateImage.size.width, templateImage.size.height)];
-    returned = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return returned;
-}
-
-
 
 #pragma mark - Private Internal Properties -
 

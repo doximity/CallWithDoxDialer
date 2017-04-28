@@ -17,7 +17,5 @@
 
 -(nonnull UIImage *)dialerIcon;
 -(nonnull UIImage *)dialerIconAsTemplate;
--(nonnull UIImage *)dialerIconInColor:(nonnull UIColor *)color;
-
 
 @end
