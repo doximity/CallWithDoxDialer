@@ -100,18 +100,53 @@
 
 -(void)openURL:(NSURL *)url {
     
-    if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL: options: completionHandler:)]) {
-        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+    // NOTE:
+    // iOS 10 deprecated `UIApplication`'s `-openURL:` method, and replaced it with
+    // `-openURL: options: completionHandler:`.
+    //
+    // We want code that compiles and runs without warnings or errors on both post- and pre- Xcode8/iOS 10 projects.
+    //
+    // Therefore we dynamically decide which code path to execute based on whether or not the iOS 10 variant of `openURL` is available.
+    
+    SEL openURLiOS10AndAbove = @selector(openURL: options: completionHandler:);
+    if ([[UIApplication sharedApplication] respondsToSelector:openURLiOS10AndAbove]) {
+        
+        // Since we want the code to compile on Xcode < 8, we can't just make the method call.
+        // Instead, we must construct it dynamically.
+        //
+        // Normally, we woudld be able to use `performSelector: withObject:` for this purpose.
+        // However since the selector takes 3 arguments, and `performSelector` is limited to 2 arguments,
+        // we must instead use `NSObject`'s `-methodForSelector`:
+        
+        // declare the method arguments:
+        NSURL *arg1 = url;
+        NSDictionary<NSString *, id> *arg2 = @{};
+        typedef void (^OpenURLCompletionHandler)(BOOL);
+        OpenURLCompletionHandler arg3 = ^void(BOOL success){ };
+        
+        // construct the method dynamically
+        typedef void (*OpenURLMethod)(id, SEL, NSURL *, NSDictionary<NSString *, id> *, OpenURLCompletionHandler);
+        OpenURLMethod openURLMethod;
+        openURLMethod = (OpenURLMethod)[[UIApplication sharedApplication] methodForSelector:openURLiOS10AndAbove];
+        
+        // call the method
+        openURLMethod([UIApplication sharedApplication], openURLiOS10AndAbove, arg1, arg2, arg3);
     }
+    
     else if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:)]){
+        
+        // since this code path will only execute on pre-iOS 10 environments,
+        // we are justified in ignoring the `deprecated` warning for this method call:
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [[UIApplication sharedApplication] openURL:url];
 #pragma clang diagnostic pop
-
     }
-    
-    
+    else {
+        // This should never happen:
+        NSLog(@"No available implementation for `-openURL` on `UIApplication`");
+        NSLog(@"Please contact Doximity for support: dialer@doximity.com");
+    }
 }
 
 
