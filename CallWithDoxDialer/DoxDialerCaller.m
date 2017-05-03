@@ -108,7 +108,12 @@
     //
     // Therefore we dynamically decide which code path to execute based on whether or not the iOS 10 variant of `openURL` is available.
     
+    // explicitly ignore "undeclared selector" warning (would appear on Xcode < 8)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
     SEL openURLiOS10AndAbove = @selector(openURL: options: completionHandler:);
+#pragma clang diagnostic pop
+
     if ([[UIApplication sharedApplication] respondsToSelector:openURLiOS10AndAbove]) {
         
         // Since we want the code to compile on Xcode < 8, we can't just make the method call.
