@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "CallWithDoxDialer"
-  s.version      = "0.1"
+  s.version      = "0.1.1"
   s.summary      = "A µLibrary for initiating calls through Doximity's Dialer app."
   s.description  = <<-DESC
                   Doximity's Dialer app lets healthcare professionals make
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 
                   This µLibrary lets 3rd-party apps easily initiate calls through the Doximity Dialer app.
                    DESC
-  s.homepage     = "https://www.doximity.com/clinicians/download/dialer"
+  s.homepage     = "https://github.com/doximity/CallWithDoxDialer/"
   s.license      = { :type => "Unlicense", :file => "LICENSE.MD" }
   s.author       = { "Atai Barkai" => "abarkai@doximity.com" }
   s.platform     = :ios, "8.0"
