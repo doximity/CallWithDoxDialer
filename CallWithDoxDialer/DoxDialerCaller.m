@@ -15,6 +15,8 @@
     UIImage *_dialerIcon;
     UIImage *_dialerIconAsTemplate;
 }
+@property (nonnull, readonly) NSString *dialerScheme;
+
 @end
 
 
@@ -38,10 +40,15 @@
 #pragma mark Methods
 -(void)dialPhoneNumber:(nonnull NSString *)phoneNumber {
     if (self.isDialerInstalled) {
-        NSString *urlEscapedPhoneNumber = [phoneNumber stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-        NSURL *launchDialerURL = [NSURL URLWithString:[NSString stringWithFormat:@"/call?targetNumber=%@", urlEscapedPhoneNumber]
-                                        relativeToURL:self.dialerSchemeURL];
-        [self openURL:launchDialerURL];
+        
+        NSURLComponents *launchDialerURLComponents = [[NSURLComponents alloc] init];
+        launchDialerURLComponents.scheme = self.dialerScheme;
+        launchDialerURLComponents.host = @"";
+        launchDialerURLComponents.path = @"/call";
+        launchDialerURLComponents.queryItems = @[
+                                                 [[NSURLQueryItem alloc] initWithName:@"targetNumber" value:phoneNumber]
+                                                 ];
+        [self openURL:launchDialerURLComponents.URL];
     }
     else {
         [self openURL:self.openDialerInAppStoreURL];
@@ -75,9 +82,15 @@
 #pragma mark - Private Internal Properties -
 
 #pragma mark Lazy Properties
+-(nonnull NSString *)dialerScheme {
+    return @"DoximityDialer";
+}
 -(nonnull NSURL *)dialerSchemeURL {
     if(!_dialerSchemeURL) {
-        _dialerSchemeURL = [NSURL URLWithString:@"DoximityDialer://"];
+        NSURLComponents *dialerSchemeURLComponents = [[NSURLComponents alloc] init];
+        dialerSchemeURLComponents.scheme = self.dialerScheme;
+        dialerSchemeURLComponents.host = @"";
+        _dialerSchemeURL = dialerSchemeURLComponents.URL;
     }
     return _dialerSchemeURL;
 }
