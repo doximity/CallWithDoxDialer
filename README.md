@@ -9,10 +9,7 @@
 
 ## What is CallWithDoxDialer?
 
-Doximity's [Dialer][] app lets healthcare professionals make
-phone calls to patients while on the go -- without revealing personal phone numbers.
-Calls are routed through Doximity's HIPPA-compliant bridge lines,
-and are presented to recipients as if they originated from one's office phone number.
+Doximity's [Dialer][] app lets healthcare professionals make phone calls to patients while on the go -- without revealing personal phone numbers. Calls are routed through Doximity's HIPPA-secure platform and relayed to the patient who will see the doctor's office number in the Caller ID. Doximity Dialer is currently available to verified physicians, nurse practitioners, physician assistants and pharmacists in the United States.
 
 This µLibrary lets 3rd-party apps easily initiate calls through the Doximity Dialer app.
 
@@ -71,7 +68,7 @@ If you use [Carthage][] to manage your dependencies, simply add
 CallWithDoxDialer to your `Cartfile`:
 
 ```
-github "doximity/CallWithDoxDialer" ~> 0.1.0
+github "doximity/CallWithDoxDialer" ~> 0.1.3
 ```
 
 If you use Carthage to build your dependencies, make sure you have added `CallWithDoxDialer.framework` to the "_Linked Frameworks and Libraries_" section of your target, and have included it in your Carthage framework copying build phase.
@@ -82,7 +79,7 @@ If you use [CocoaPods][] to manage your dependencies, simply add
 CallWithDoxDialer to your `Podfile`:
 
 ```
-pod 'CallWithDoxDialer', '~> 0.1.0'
+pod 'CallWithDoxDialer', '~> 0.1.3'
 ```
 
 #### Manually
