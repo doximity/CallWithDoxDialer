@@ -68,7 +68,7 @@ If you use [Carthage][] to manage your dependencies, simply add
 CallWithDoxDialer to your `Cartfile`:
 
 ```
-github "doximity/CallWithDoxDialer" ~> 0.1.3
+github "doximity/CallWithDoxDialer" ~> 1.0.0
 ```
 
 If you use Carthage to build your dependencies, make sure you have added `CallWithDoxDialer.framework` to the "_Linked Frameworks and Libraries_" section of your target, and have included it in your Carthage framework copying build phase.
@@ -79,7 +79,7 @@ If you use [CocoaPods][] to manage your dependencies, simply add
 CallWithDoxDialer to your `Podfile`:
 
 ```
-pod 'CallWithDoxDialer', '~> 0.1.3'
+pod 'CallWithDoxDialer', '~> 1.0.0'
 ```
 
 #### Manually
