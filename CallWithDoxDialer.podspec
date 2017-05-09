@@ -1,12 +1,14 @@
 Pod::Spec.new do |s|
   s.name         = "CallWithDoxDialer"
-  s.version      = "0.1.2"
+  s.version      = "1.0.0"
   s.summary      = "A µLibrary for initiating calls through Doximity's Dialer app."
   s.description  = <<-DESC
-                  Doximity's Dialer app lets healthcare professionals make
-                  phone calls to patients while on the go -- without revealing personal phone numbers.
-                  Calls are routed through Doximity's HIPPA-compliant bridge lines,
-                  and are presented to recipients as if they originated from one's office phone number.
+                  Doximity's Dialer app lets healthcare professionals make phone calls 
+                  to patients while on the go -- without revealing personal phone numbers.
+                  Calls are routed through Doximity's HIPPA-secure platform and relayed to the patient
+                  who will see the doctor's office number in the Caller ID.
+                  Doximity Dialer is currently available to verified physicians, nurse practitioners,
+                  physician assistants and pharmacists in the United States.
 
                   This µLibrary lets 3rd-party apps easily initiate calls through the Doximity Dialer app.
                    DESC
