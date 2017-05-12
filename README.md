@@ -13,6 +13,10 @@ Doximity's [Dialer][] app lets healthcare professionals make phone calls to pati
 
 This µLibrary lets 3rd-party apps easily initiate calls through the Doximity Dialer app.
 
+## Other Platforms
+
+* [Android](https://github.com/doximity/android-dialer-call-lib)
+
 ## Usage
 
 ### Core Functionality
