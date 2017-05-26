@@ -63,7 +63,7 @@ First, you must give your app permission to open the Dialer app.
 <img src="ReadmeResources/InfoPlistExample.png" height="100"/>
 
 In your app's `Info.plist`, add a new entry with key `LSApplicationQueriesSchemes` and value type `Array` if one does not already exist.
-Then add an element to the array of type `String` and value `DoximityDialer`.
+Then add an element to the array of type `String` and value `doximitydialer`.
 
 
 #### Carthage
