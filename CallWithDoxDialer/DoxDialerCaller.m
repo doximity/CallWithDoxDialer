@@ -43,10 +43,10 @@
         
         NSURLComponents *launchDialerURLComponents = [[NSURLComponents alloc] init];
         launchDialerURLComponents.scheme = self.dialerScheme;
-        launchDialerURLComponents.host = @"";
+        launchDialerURLComponents.host = @"doximity";
         launchDialerURLComponents.path = @"/call";
         launchDialerURLComponents.queryItems = @[
-                                                 [[NSURLQueryItem alloc] initWithName:@"targetNumber" value:phoneNumber]
+                                                 [[NSURLQueryItem alloc] initWithName:@"target_number" value:phoneNumber]
                                                  ];
         [self openURL:launchDialerURLComponents.URL];
     }
@@ -83,7 +83,7 @@
 
 #pragma mark Lazy Properties
 -(nonnull NSString *)dialerScheme {
-    return @"DoximityDialer";
+    return @"doximitydialer";
 }
 -(nonnull NSURL *)dialerSchemeURL {
     if(!_dialerSchemeURL) {
