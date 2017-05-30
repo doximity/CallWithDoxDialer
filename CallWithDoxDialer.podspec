@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "CallWithDoxDialer"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "A µLibrary for initiating calls through Doximity's Dialer app."
   s.description  = <<-DESC
                   Doximity's Dialer app lets healthcare professionals make phone calls 

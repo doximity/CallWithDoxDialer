@@ -63,7 +63,7 @@ First, you must give your app permission to open the Dialer app.
 <img src="ReadmeResources/InfoPlistExample.png" height="100"/>
 
 In your app's `Info.plist`, add a new entry with key `LSApplicationQueriesSchemes` and value type `Array` if one does not already exist.
-Then add an element to the array of type `String` and value `DoximityDialer`.
+Then add an element to the array of type `String` and value `doximitydialer`.
 
 
 #### Carthage
@@ -72,7 +72,7 @@ If you use [Carthage][] to manage your dependencies, simply add
 CallWithDoxDialer to your `Cartfile`:
 
 ```
-github "doximity/CallWithDoxDialer" ~> 1.0.0
+github "doximity/CallWithDoxDialer" ~> 1.0
 ```
 
 If you use Carthage to build your dependencies, make sure you have added `CallWithDoxDialer.framework` to the "_Linked Frameworks and Libraries_" section of your target, and have included it in your Carthage framework copying build phase.
@@ -83,7 +83,7 @@ If you use [CocoaPods][] to manage your dependencies, simply add
 CallWithDoxDialer to your `Podfile`:
 
 ```
-pod 'CallWithDoxDialer', '~> 1.0.0'
+pod 'CallWithDoxDialer', '~> 1.0'
 ```
 
 #### Manually
