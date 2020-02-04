@@ -1,6 +1,6 @@
 <p align="center">
 	<a href="https://github.com/doximity/CallWithDoxDialer/"><img src="ReadmeResources/logo.png" width="200" alt="CallWithDoxDialer" /></a><br /><br />
-	A µLibrary for making calls using <a href="https://www.doximity.com/clinicians/download/dialer/">Doximity Dialer</a>.<br /><br />
+	A µLibrary for making calls using <a href="https://www.doximity.com">Doximity</a>.<br /><br />
 </p>
 <br />
 
@@ -9,9 +9,9 @@
 
 ## What is CallWithDoxDialer?
 
-Doximity's [Dialer][] app lets healthcare professionals make phone calls to patients while on the go -- without revealing personal phone numbers. Calls are routed through Doximity's HIPPA-secure platform and relayed to the patient who will see the doctor's office number in the Caller ID. Doximity Dialer is currently available to verified physicians, nurse practitioners, physician assistants and pharmacists in the United States.
+Doximity lets healthcare professionals make phone calls to patients while on the go -- without revealing personal phone numbers. Calls are routed through Doximity's HIPAA-secure platform and relayed to the patient who will see the doctor's office number in the Caller ID. Doximity is currently available to verified physicians, nurse practitioners, physician assistants and pharmacists in the United States.
 
-This µLibrary lets 3rd-party apps easily initiate calls through the Doximity Dialer app.
+This µLibrary lets 3rd-party apps easily initiate calls through the Doximity app.
 
 ## Other Platforms
 
@@ -20,8 +20,8 @@ This µLibrary lets 3rd-party apps easily initiate calls through the Doximity Di
 ## Usage
 
 ### Core Functionality
-To initiate a call using Doximity Dialer, simply call the `dialPhoneNumber` method on the shared `DoxDialerCaller` instance.
-If the Doximity Dialer app is not installed, this call will direct the user to Doximity Dialer on the App Store.
+To initiate a call using Doximity, simply call the `dialPhoneNumber` method on the shared `DoxDialerCaller` instance.
+If the Doximity app is not installed, this call will direct the user to Doximity on the App Store.
 
 Most reasonable phone number formats are accepted by the `dialPhoneNumber` method, e.g.:
 - using numbers only: `6502333444`
@@ -47,7 +47,7 @@ DoxDialerCaller.shared().dialPhoneNumber("4254443333")
 ```
 
 ### Icons
-The library also includes a version of the Doximity Dialer icon appropriate for use inside buttons.
+The library also includes a version of the Doximity icon appropriate for use inside buttons.
 It's available through
 - `DoxDialerCaller.shared().dialerIcon()`
 - `DoxDialerCaller.shared().dialerIconAsTemplate()` (for use in tinted views)
@@ -58,12 +58,12 @@ It's available through
 
 CallWithDoxDialer supports iOS 8.0+.
 
-First, you must give your app permission to open the Dialer app.
+First, you must give your app permission to open the Doximity app.
 
 <img src="ReadmeResources/InfoPlistExample.png" height="100"/>
 
 In your app's `Info.plist`, add a new entry with key `LSApplicationQueriesSchemes` and value type `Array` if one does not already exist.
-Then add an element to the array of type `String` and value `doximitydialer`.
+Then add an element to the array of type `String` and value `doximity`.
 
 
 #### Carthage
