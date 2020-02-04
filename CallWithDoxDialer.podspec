@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
                   to patients while on the go -- without revealing personal phone numbers.
                   Calls are routed through Doximity's HIPAA-secure platform and relayed to the patient
                   who will see the doctor's office number in the Caller ID.
-                  Doximity Dialer is currently available to verified physicians, nurse practitioners,
+                  Doximity is currently available to verified physicians, nurse practitioners,
                   physician assistants and pharmacists in the United States.
 
                   This µLibrary lets 3rd-party apps easily initiate calls through the Doximity app.
