@@ -58,7 +58,7 @@ It's available through
 
 CallWithDoxDialer supports iOS 8.0+.
 
-First, you must give your app permission to open the Dialer app.
+First, you must give your app permission to open the Doximity app.
 
 <img src="ReadmeResources/InfoPlistExample.png" height="100"/>
 
