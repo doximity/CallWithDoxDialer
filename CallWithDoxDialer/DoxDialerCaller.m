@@ -100,7 +100,7 @@
         NSString *appIdentifyingName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] ?: @"Unknown";
         
         _openDoximityInAppStoreURL = [NSURL URLWithString:
-                                    [NSString stringWithFormat:@"https://app.appsflyer.com/id100921?pid=third_party_app&c=%@", appIdentifyingName]];
+                                    [NSString stringWithFormat:@"https://app.appsflyer.com/id393642611?pid=third_party_app&c=%@", appIdentifyingName]];
     }
     return _openDoximityInAppStoreURL;
 }
