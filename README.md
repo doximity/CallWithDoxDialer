@@ -1,6 +1,6 @@
 <p align="center">
 	<a href="https://github.com/doximity/CallWithDoxDialer/"><img src="ReadmeResources/logo.png" width="200" alt="CallWithDoxDialer" /></a><br /><br />
-	A µLibrary for making calls using <a href="https://www.doximity.com/clinicians/download/dialer/">Doximity Dialer</a>.<br /><br />
+	A µLibrary for making calls using <a href="https://www.doximity.com">Doximity</a>.<br /><br />
 </p>
 <br />
 
