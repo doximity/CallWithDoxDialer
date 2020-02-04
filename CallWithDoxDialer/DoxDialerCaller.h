@@ -44,14 +44,14 @@
 
  @return The icon as a UIImage.
  */
--(nonnull UIImage *)dialerIcon;
+-(nonnull UIImage *)doximityIcon;
 
 /**
  The Doximity Dialer icon for use in tinted views.
 
  @return The icon as a UIImage, with rendering mode `UIImageRenderingModeAlwaysTemplate`
  */
--(nonnull UIImage *)dialerIconAsTemplate;
+-(nonnull UIImage *)doximityIconAsTemplate;
 
 
 @end

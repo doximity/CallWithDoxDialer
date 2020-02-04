@@ -10,12 +10,12 @@
 #import <UIKit/UIKit.h>
 
 @interface DoxDialerCaller() {
-    NSURL *_dialerSchemeURL;
-    NSURL *_openDialerInAppStoreURL;
-    UIImage *_dialerIcon;
-    UIImage *_dialerIconAsTemplate;
+    NSURL *_doximitySchemeURL;
+    NSURL *_openDoximityInAppStoreURL;
+    UIImage *_doximityIcon;
+    UIImage *_doximityIconAsTemplate;
 }
-@property (nonnull, readonly) NSString *dialerScheme;
+@property (nonnull, readonly) NSString *doximityScheme;
 
 @end
 
@@ -39,75 +39,75 @@
 
 #pragma mark Methods
 -(void)dialPhoneNumber:(nonnull NSString *)phoneNumber {
-    if (self.isDialerInstalled) {
+    if (self.isDoximityInstalled) {
         
         NSURLComponents *launchDialerURLComponents = [[NSURLComponents alloc] init];
-        launchDialerURLComponents.scheme = self.dialerScheme;
+        launchDialerURLComponents.scheme = self.doximityScheme;
         launchDialerURLComponents.host = @"doximity";
-        launchDialerURLComponents.path = @"/call";
+        launchDialerURLComponents.path = @"/dialer";
         launchDialerURLComponents.queryItems = @[
                                                  [[NSURLQueryItem alloc] initWithName:@"target_number" value:phoneNumber]
                                                  ];
         [self openURL:launchDialerURLComponents.URL];
     }
     else {
-        [self openURL:self.openDialerInAppStoreURL];
+        [self openURL:self.openDoximityInAppStoreURL];
     }
 }
 
 
 
 #pragma mark Icons
--(nonnull UIImage *)dialerIcon {
-    if(!_dialerIcon) {
+-(nonnull UIImage *)doximityIcon {
+    if(!_doximityIcon) {
         NSBundle *libraryBundle = [NSBundle bundleForClass:[DoxDialerCaller class]];
         NSURL *assetsBundleUrl = [libraryBundle URLForResource:@"CallWithDoxDialer" withExtension:@"bundle"];
         NSBundle *assetsBundle = [NSBundle bundleWithURL:assetsBundleUrl];
         
-        _dialerIcon = [UIImage imageNamed:@"doximity-dialer-icon"
+        _doximityIcon = [UIImage imageNamed:@"doximity-icon-black"
                                  inBundle:assetsBundle
             compatibleWithTraitCollection:nil];
     }
-    return _dialerIcon;
+    return _doximityIcon;
 }
 
--(nonnull UIImage *)dialerIconAsTemplate {
-    if(!_dialerIconAsTemplate) {
-        _dialerIconAsTemplate = [self.dialerIcon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+-(nonnull UIImage *)doximityIconAsTemplate {
+    if(!_doximityIconAsTemplate) {
+        _doximityIconAsTemplate = [self.doximityIcon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
-    return _dialerIconAsTemplate;
+    return _doximityIconAsTemplate;
 }
 
 
 #pragma mark - Private Internal Properties -
 
 #pragma mark Lazy Properties
--(nonnull NSString *)dialerScheme {
-    return @"doximitydialer";
+-(nonnull NSString *)doximityScheme {
+    return @"doximity";
 }
--(nonnull NSURL *)dialerSchemeURL {
-    if(!_dialerSchemeURL) {
+-(nonnull NSURL *)doximitySchemeURL {
+    if(!_doximitySchemeURL) {
         NSURLComponents *dialerSchemeURLComponents = [[NSURLComponents alloc] init];
-        dialerSchemeURLComponents.scheme = self.dialerScheme;
+        dialerSchemeURLComponents.scheme = self.doximityScheme;
         dialerSchemeURLComponents.host = @"";
-        _dialerSchemeURL = dialerSchemeURLComponents.URL;
+        _doximitySchemeURL = dialerSchemeURLComponents.URL;
     }
-    return _dialerSchemeURL;
+    return _doximitySchemeURL;
 }
 
--(nonnull NSURL *)openDialerInAppStoreURL {
-    if(!_openDialerInAppStoreURL) {
+-(nonnull NSURL *)openDoximityInAppStoreURL {
+    if(!_openDoximityInAppStoreURL) {
         NSString *appIdentifyingName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] ?: @"Unknown";
         
-        _openDialerInAppStoreURL = [NSURL URLWithString:
-                                    [NSString stringWithFormat:@"https://app.appsflyer.com/id1157770564?pid=third_party_app&c=%@", appIdentifyingName]];
+        _openDoximityInAppStoreURL = [NSURL URLWithString:
+                                    [NSString stringWithFormat:@"https://app.appsflyer.com/id100921?pid=third_party_app&c=%@", appIdentifyingName]];
     }
-    return _openDialerInAppStoreURL;
+    return _openDoximityInAppStoreURL;
 }
 
 #pragma mark Private Helpers
--(BOOL)isDialerInstalled {
-    return [UIApplication.sharedApplication canOpenURL:self.dialerSchemeURL];
+-(BOOL)isDoximityInstalled {
+    return [UIApplication.sharedApplication canOpenURL:self.doximitySchemeURL];
 }
 
 
