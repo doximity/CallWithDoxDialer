@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "CallWithDoxDialer"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = "A µLibrary for initiating calls through the Doximity app."
   s.description  = <<-DESC
                   Doximity lets healthcare professionals make phone calls 
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/doximity/CallWithDoxDialer/"
   s.license      = { :type => "Unlicense", :file => "LICENSE.MD" }
   s.author       = { "Atai Barkai" => "abarkai@doximity.com" }
-  s.platform     = :ios, "8.0"
+  s.platform     = :ios, "15.0"
   s.source       = { :git => "https://github.com/doximity/CallWithDoxDialer.git", :tag => "v#{s.version}" }
   s.source_files  = "CallWithDoxDialer/**/*.{h,m}"
   s.resource = 'CallWithDoxDialer/CallWithDoxDialer.bundle'
