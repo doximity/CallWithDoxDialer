@@ -56,7 +56,7 @@ It's available through
 
 ## Integrating CallWithDoxDialer Into Your App
 
-CallWithDoxDialer supports iOS 8.0+.
+CallWithDoxDialer supports iOS 15.0+.
 
 First, you must give your app permission to open the Doximity app.
 
