@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
                    DESC
   s.homepage     = "https://github.com/doximity/CallWithDoxDialer/"
   s.license      = { :type => "Unlicense", :file => "LICENSE.MD" }
-  s.author       = { "Atai Barkai" => "abarkai@doximity.com" }
+  s.author       = { "Ronnie Rocha" => "rrocha@doximity.com" }
   s.platform     = :ios, "15.0"
   s.source       = { :git => "https://github.com/doximity/CallWithDoxDialer.git", :tag => "v#{s.version}" }
   s.source_files  = "CallWithDoxDialer/**/*.{h,m}"
