@@ -1,4 +1,5 @@
 import Foundation
+#if canImport(UIKit)
 import UIKit
 
 class DoxDialerCaller: NSObject {
@@ -21,15 +22,16 @@ class DoxDialerCaller: NSObject {
 
     var doximityIcon: UIImage {
         let bundle = Bundle(for: DoxDialerCaller.self)
-        let url = bundle.url(forResource: "CallWithDoxDialer", withExtension: "bundle")
-        let assetsBundle = Bundle(url: url!)
-
-        let image = UIImage(
-            named: "doximity-icon-black",
-            in: assetsBundle,
-            compatibleWith: nil
-        )
-        return image ?? UIImage()
+        guard
+            let image = UIImage(
+                named: "icon",
+                in: .module,
+                compatibleWith: nil
+            )
+        else {
+            return UIImage()
+        }
+        return image
     }
 
     var doximityIconAsTemplate: UIImage {
@@ -54,5 +56,6 @@ private extension DoxDialerCaller {
     func openURL(_ url: URL) {
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
-
 }
+
+#endif
