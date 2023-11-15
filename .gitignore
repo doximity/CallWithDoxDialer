@@ -17,6 +17,10 @@ profile
 *.xctimeline
 *.xcscmblueprint
 
+## Build generated
+build/
+DerivedData/
+
 # OS X
 .DS_Store
 

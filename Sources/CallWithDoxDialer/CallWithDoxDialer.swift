@@ -2,26 +2,26 @@ import Foundation
 #if canImport(UIKit)
 import UIKit
 
-class DoxDialerCaller: NSObject {
-    static let shared = DoxDialerCaller()
+public struct DoxDialerCaller {
+    public static let shared = DoxDialerCaller()
 
     private enum Constants {
         static let doximityScheme = "doximity://"
-        static let dialerTargetNumberPath = "dialer/target_number="
+        static let dialerTargetNumberPath = "dialer/call?target_number="
         static let appsFlyerID = "id393642611"
     }
 
-    func dialPhoneNumber(_ phoneNumber: String) {
+    public func dialPhoneNumber(_ phoneNumber: String) {
         if isDoximityInstalled {
-            openURL(URL(string: "\(Constants.doximityScheme)\(Constants.dialerTargetNumberPath)\(phoneNumber)")!)
+            guard let dialerURL = URL(string: "\(Constants.doximityScheme)\(Constants.dialerTargetNumberPath)\(phoneNumber)") else { return }
+            openURL(dialerURL)
         } else {
             guard let url = doximityAppStoreURL else { return }
             openURL(url)
         }
     }
 
-    var doximityIcon: UIImage {
-        let bundle = Bundle(for: DoxDialerCaller.self)
+    public var doximityIcon: UIImage {
         guard
             let image = UIImage(
                 named: "icon",
@@ -34,7 +34,7 @@ class DoxDialerCaller: NSObject {
         return image
     }
 
-    var doximityIconAsTemplate: UIImage {
+    public var doximityIconAsTemplate: UIImage {
         doximityIcon.withRenderingMode(.alwaysTemplate)
     }
 }
@@ -57,5 +57,22 @@ private extension DoxDialerCaller {
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
+
+// MARK: Objective-C Bridging
+@objc(DoxDialerCaller)
+public final class DoxDialerCallerObjc: NSObject {
+    @objc public static func dialPhoneNumber(_ phoneNumber: String) {
+        DoxDialerCaller.shared.dialPhoneNumber(phoneNumber)
+    }
+
+    @objc public static var doximityIcon: UIImage {
+        DoxDialerCaller.shared.doximityIcon
+    }
+
+    @objc public static var doximityIconAsTemplate: UIImage {
+        DoxDialerCaller.shared.doximityIconAsTemplate
+    }
+}
+
 
 #endif
