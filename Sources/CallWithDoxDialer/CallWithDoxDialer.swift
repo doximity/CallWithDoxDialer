@@ -2,15 +2,21 @@ import Foundation
 #if canImport(UIKit)
 import UIKit
 
+/// A struct to handle dialing phone numbers using the Doximity app.
 public struct DoxDialerCaller {
+    /// Singleton instance of `DoxDialerCaller`.
     public static let shared = DoxDialerCaller()
 
+    /// Constants used in `DoxDialerCaller`.
     private enum Constants {
         static let doximityScheme = "doximity://"
         static let dialerTargetNumberPath = "dialer/call?target_number="
         static let appsFlyerID = "id393642611"
     }
 
+    /// Dials a phone number using the Doximity app if it's installed; otherwise,
+    /// it directs the user to the App Store page for the Doximity app.
+    /// - Parameter phoneNumber: The 10-digit phone number `String` to dial
     public func dialPhoneNumber(_ phoneNumber: String) {
         if isDoximityInstalled {
             guard let dialerURL = URL(string: "\(Constants.doximityScheme)\(Constants.dialerTargetNumberPath)\(phoneNumber)") else { return }
@@ -21,25 +27,50 @@ public struct DoxDialerCaller {
         }
     }
 
+    /// Returns the Doximity icon image.
     public var doximityIcon: UIImage {
-        guard
-            let image = UIImage(
-                named: "icon",
-                in: .module,
-                compatibleWith: nil
-            )
-        else {
-            return UIImage()
-        }
-        return image
+        return iconFromPackage ?? iconFromBundle ?? UIImage()
     }
 
+    /// Returns the Doximity icon image as a template for UI customization.
     public var doximityIconAsTemplate: UIImage {
         doximityIcon.withRenderingMode(.alwaysTemplate)
     }
 }
 
 private extension DoxDialerCaller {
+    /// Doximity icon asset from the swift package resources
+    var iconFromPackage: UIImage? {
+    #if SWIFT_PACKAGE
+       let resourceBundle = Bundle.module
+            guard
+                let image = UIImage(
+                    named: "icon",
+                    in: .module,
+                    compatibleWith: nil
+                )
+            else {
+                return UIImage()
+            }
+            return image
+    #else
+        return nil
+    #endif
+    }
+
+    /// Doximity icon asset from the `CallWithDoxDialer.bundle` for manual integration
+    var iconFromBundle: UIImage? {
+        let libraryBundle = Bundle.main
+        guard let assetsBundleURL = libraryBundle.url(forResource: "CallWithDoxDialer", withExtension: "bundle") else {
+            return nil
+        }
+        let assetsBundle = Bundle(url: assetsBundleURL)
+        let doximityIcon = UIImage(named: "icon", in: assetsBundle, with: nil)
+
+        return doximityIcon
+    }
+
+    /// Checks if the Doximity app is installed on the device.
     var isDoximityInstalled: Bool {
         guard let doximitySchemeURL = URL(string: Constants.doximityScheme) else {
             return false
@@ -47,18 +78,22 @@ private extension DoxDialerCaller {
         return UIApplication.shared.canOpenURL(doximitySchemeURL)
     }
 
+    /// URL for the Doximity app in the App Store, including app-specific parameters for tracking.
     var doximityAppStoreURL: URL? {
         let appName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "Unknown"
         let appIdentifyingName = appName.replacingOccurrences(of: " ", with: "-")
         return URL(string: "https://app.appsflyer.com/\(Constants.appsFlyerID)?pid=third_party_app&c=\(appIdentifyingName)")
     }
 
+    /// Opens a given URL using `UIApplication`.
     func openURL(_ url: URL) {
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
 
 // MARK: Objective-C Bridging
+
+/// Objective-C compatible class for `DoxDialerCaller`. Used for bridging with Objective-C codebases.
 @objc(DoxDialerCaller)
 public final class DoxDialerCallerObjc: NSObject {
     @objc public static func dialPhoneNumber(_ phoneNumber: String) {
