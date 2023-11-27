@@ -1,5 +1,4 @@
 import Foundation
-#if canImport(UIKit)
 import UIKit
 
 public protocol OpenApplicationURL {
@@ -8,4 +7,3 @@ public protocol OpenApplicationURL {
 }
 
 extension UIApplication: OpenApplicationURL { }
-#endif

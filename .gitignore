@@ -23,8 +23,3 @@ DerivedData/
 
 # OS X
 .DS_Store
-
-### Carthage ###
-# Carthage - A simple, decentralized dependency manager for Cocoa
-Carthage/Checkouts/
-Carthage/Build/

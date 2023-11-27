@@ -1,6 +1,5 @@
 import Foundation
 @testable import CallWithDoxDialer
-#if canImport(UIKit)
 import UIKit
 
 final class MockApplication: OpenApplicationURL {
@@ -15,5 +14,3 @@ final class MockApplication: OpenApplicationURL {
         canOpenURL
     }
 }
-
-#endif

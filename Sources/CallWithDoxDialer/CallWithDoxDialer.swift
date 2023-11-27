@@ -1,11 +1,14 @@
 import Foundation
-#if canImport(UIKit)
 import UIKit
 
 /// A struct to handle dialing phone numbers using the Doximity app.
 public struct DoxDialerCaller {
     /// Singleton instance of `DoxDialerCaller`.
     public static let shared = DoxDialerCaller()
+
+    public enum DoximityDialerError: Error {
+        case imageAssetNotFound
+    }
 
     /// Constants used in `DoxDialerCaller`.
     private enum Constants {
@@ -34,13 +37,19 @@ public struct DoxDialerCaller {
     }
 
     /// Returns the Doximity icon image.
-    public var doximityIcon: UIImage {
-        return iconFromPackage ?? iconFromBundle ?? UIImage()
+    public func doximityIcon() throws -> UIImage {
+        guard let image = iconFromPackage ?? iconFromBundle else {
+            throw DoximityDialerError.imageAssetNotFound
+        }
+        return image
     }
 
     /// Returns the Doximity icon image as a template for UI customization.
-    public var doximityIconAsTemplate: UIImage {
-        doximityIcon.withRenderingMode(.alwaysTemplate)
+    public func doximityIconAsTemplate() throws -> UIImage {
+        guard let image = iconFromPackage ?? iconFromBundle else {
+            throw DoximityDialerError.imageAssetNotFound
+        }
+        return image.withRenderingMode(.alwaysTemplate)
     }
 }
 
@@ -105,13 +114,14 @@ public final class DoxDialerCallerObjc: NSObject {
         DoxDialerCaller.shared.dialPhoneNumber(phoneNumber)
     }
 
-    @objc public static var doximityIcon: UIImage {
-        DoxDialerCaller.shared.doximityIcon
+    /// Objective-C bridging function that returns the Doximity icon image.
+    @objc public static func doximityIcon() throws -> UIImage {
+        try DoxDialerCaller.shared.doximityIcon()
     }
 
-    @objc public static var doximityIconAsTemplate: UIImage {
-        DoxDialerCaller.shared.doximityIconAsTemplate
+    /// Objective-C bridging function that returns the Doximity
+    /// icon image as a template for UI customization.
+    @objc public static func doximityIconAsTemplate() throws -> UIImage {
+        try DoxDialerCaller.shared.doximityIconAsTemplate()
     }
 }
-
-#endif
