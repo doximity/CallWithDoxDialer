@@ -3,13 +3,13 @@ import XCTest
 
 final class DoximityDialerSDKTests: XCTestCase {
 
-    var dialerCaller: DoximityDialerSDK!
+    var dialerCaller: DoximityDialer!
     var mockApplication: MockApplication!
 
     override func setUp() {
         super.setUp()
         mockApplication = MockApplication()
-        dialerCaller = DoximityDialerSDK(application: mockApplication)
+        dialerCaller = DoximityDialer(application: mockApplication)
     }
 
     override func tearDown() {

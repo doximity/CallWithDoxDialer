@@ -75,7 +75,7 @@ private extension DoximityDialer {
     /// Doximity icon asset from the `CallWithDoxDialer.bundle` for manual integration
     var iconFromBundle: UIImage? {
         let libraryBundle = Bundle.main
-        guard let assetsBundleURL = libraryBundle.url(forResource: "CallWithDoxDialer", withExtension: "bundle") else {
+        guard let assetsBundleURL = libraryBundle.url(forResource: "DoximityDialerSDK", withExtension: "bundle") else {
             return nil
         }
         let assetsBundle = Bundle(url: assetsBundleURL)
@@ -125,3 +125,11 @@ public final class DoximityDialerObjc: NSObject {
         try DoximityDialer.shared.doximityIconAsTemplate()
     }
 }
+
+// MARK: OpenApplicationURL protocol
+protocol OpenApplicationURL {
+    func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey: Any], completionHandler completion: ((Bool) -> Void)?)
+    func canOpenURL(_ url: URL) -> Bool
+}
+
+extension UIApplication: OpenApplicationURL { }
