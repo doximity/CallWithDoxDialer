@@ -1,5 +1,5 @@
 import Foundation
-@testable import CallWithDoxDialer
+@testable import DoximityDialerSDK
 import UIKit
 
 final class MockApplication: OpenApplicationURL {

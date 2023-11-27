@@ -20,7 +20,7 @@ This µLibrary lets 3rd-party apps easily initiate calls through the Doximity ap
 ## Usage
 
 ### Core Functionality
-To initiate a call using Doximity, simply call the `dialPhoneNumber` method on the shared `DoxDialerCaller` instance.
+To initiate a call using Doximity, simply call the `dialPhoneNumber` method on the shared `DoximityDialer` instance.
 If the Doximity app is not installed, this call will direct the user to Doximity on the App Store.
 
 Most reasonable phone number formats are accepted by the `dialPhoneNumber` method, e.g.:
@@ -30,27 +30,27 @@ Most reasonable phone number formats are accepted by the `dialPhoneNumber` metho
 
 #### Using Swift
 ```
-import CallWithDoxDialer
+import DoximityDialerSDK
 
 ...
 
-DoxDialerCaller.shared.dialPhoneNumber("4254443333")
+DoximityDialer.shared.dialPhoneNumber("4254443333")
 ```
 
 #### Using Objective-C
 ```
-@import CallWithDoxDialer
+@import DoximityDialerSDK
 
 ...
 
-[DoxDialerCaller dialPhoneNumber:@"4254443333"];
+[DoximityDialer dialPhoneNumber:@"4254443333"];
 ```
 
 ### Icons
 The library also includes a version of the Doximity icon appropriate for use inside buttons.
 It's available through
-- `DoxDialerCaller.shared.dialerIcon`
-- `DoxDialerCaller.shared.dialerIconAsTemplate` (for use in tinted views)
+- `DoximityDialer.shared.dialerIcon()`
+- `DoximityDialer.shared.dialerIconAsTemplate()` (for use in tinted views)
 
 
 
