@@ -7,7 +7,7 @@
 [![GitHub release](https://img.shields.io/github/release/doximity/CallWithDoxDialer.svg)](https://github.com/doximity/CallWithDoxDialer/releases) ![platforms](https://img.shields.io/badge/platforms-iOS-lightgrey.svg)
 
 
-## What is CallWithDoxDialer?
+## What is DoximityDialerSDK?
 
 Doximity lets healthcare professionals make phone calls to patients while on the go -- without revealing personal phone numbers. Calls are routed through Doximity's HIPAA-secure platform and relayed to the patient who will see the doctor's office number in the Caller ID. Doximity is currently available to verified physicians, nurse practitioners, physician assistants and pharmacists in the United States.
 
@@ -54,9 +54,9 @@ It's available through
 
 
 
-## Integrating CallWithDoxDialer Into Your App
+## Integrating DoximityDialerSDK Into Your App
 
-CallWithDoxDialer supports iOS 15.0+.
+DoximityDialerSDK supports iOS 15.0+.
 
 First, you must give your app permission to open the Doximity app.
 
@@ -68,13 +68,13 @@ Then add an element to the array of type `String` and value `doximity`.
 
 #### Swift Package Manager (SPM)
 
-CallWithDoxDialer is now distributed via Swift Package Manager. To use this library in your project, add the https://github.com/doximity/CallWithDoxDialer.git repository as a Swift Pacakge.
+DoximityDialerSDK is now distributed via Swift Package Manager. To use this library in your project, add the https://github.com/doximity/CallWithDoxDialer.git repository as a Swift Pacakge.
 
 
 #### Manually
-To integrate `CallWithDoxDialer` without a package manager, simply download the following files, and place it anywhere in your project:
-- `Sources/CallWithDoxDialer/CallWithDoxDialer.swift`
-- `Sources/CallWithDoxDialer/CallWithDoxDialer.bundle`
+To integrate `DoximityDialerSDK` without a package manager, simply download the following files, and place it anywhere in your project:
+- `Sources/DoximityDialerSDK/DoximityDialer.swift`
+- `Sources/DoximityDialerSDK/DoximityDialer.bundle`
 
 
 ## Have a question?
