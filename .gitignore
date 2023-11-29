@@ -17,7 +17,9 @@ profile
 *.xctimeline
 *.xcscmblueprint
 
-### Carthage ###
-# Carthage - A simple, decentralized dependency manager for Cocoa
-Carthage/Checkouts/
-Carthage/Build/
+## Build generated
+build/
+DerivedData/
+
+# OS X
+.DS_Store
