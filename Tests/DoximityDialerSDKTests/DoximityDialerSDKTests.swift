@@ -20,7 +20,7 @@ final class DoximityDialerSDKTests: XCTestCase {
 
     func testDialPhoneNumber_WithDoximityNotInstalled_ShouldOpenAppStoreURL() {
         dialerCaller.dialPhoneNumber("1234567890")
-        XCTAssertEqual(mockApplication.lastURL, URL(string: "doximity://dialer/call?target_number=1234567890"))
+        XCTAssertEqual(mockApplication.lastURL, URL(string: "doximity://dialer/call?target_number=1234567890&utm_source=com.apple.dt.xctest.tool"))
     }
 
     func testDialPhoneNumber_WithDoximityInstalled_ShouldOpenCorrectURL() {
