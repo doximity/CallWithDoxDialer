@@ -4,10 +4,7 @@ meta:
   xcode-versions: &xcode-versions
       matrix:
         parameters:
-          xcode-version:
-            - 16.0.0
-            - 16.1.0
-            - 16.2.0
+          xcode-version: ["16.0.0", "16.1.0", "16.2.0"]
 
 jobs:
   build_and_test:
@@ -19,8 +16,7 @@ jobs:
       xcode: << parameters.xcode-version >>
     steps:
       - checkout
-      # - run: fastlane setup_circle_ci
-      - run: fastlane scan --package_path "." --scheme "DoximityDialerSDK" --device "iPhone 16 Pro Max" --result_bundle true
+      - run: fastlane scan --package_path "." --scheme "DoximityDialerSDK" --device "iPhone" --result_bundle true --output-types "" --clean
       - run: fastlane trainer --path "test_output" --output_directory "test_results"
       - store_test_results:
           path: test_results
