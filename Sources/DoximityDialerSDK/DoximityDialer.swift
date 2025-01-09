@@ -129,8 +129,13 @@ public final class DoximityDialerObjc: NSObject {
 
 // MARK: OpenApplicationURL protocol
 protocol OpenApplicationURL {
-    func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey: Any], completionHandler completion: ((Bool) -> Void)?)
-    func canOpenURL(_ url: URL) -> Bool
+    func open(
+        _ url: URL,
+        options: [UIApplication.OpenExternalURLOptionsKey : Any],
+        completionHandler completion: (@MainActor @Sendable (Bool) -> Void)?
+    )
+
+    nonisolated func canOpenURL(_ url: URL) -> Bool
 }
 
 extension UIApplication: OpenApplicationURL { }
