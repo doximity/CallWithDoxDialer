@@ -25,7 +25,7 @@ jobs:
               --device "iPhone" \
               --clean --result_bundle true --output-types "junit"
       - run:
-          name: Geneerate Test Results
+          name: Generate Test Results
           command: |
             fastlane trainer --path "test_output" --output_directory "test_results"
       - store_test_results:
