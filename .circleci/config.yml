@@ -19,7 +19,7 @@ jobs:
       xcode: << parameters.xcode-version >>
     steps:
       - checkout
-      - run: fastlane setup_circle_ci
+      # - run: fastlane setup_circle_ci
       - run: fastlane scan --package_path "." --scheme "DoximityDialerSDK" --device "iPhone 16 Pro Max" --result_bundle true
       - run: fastlane trainer --path "test_output" --output_directory "test_results"
       - store_test_results:
