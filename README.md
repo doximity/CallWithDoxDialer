@@ -4,7 +4,7 @@
 </p>
 <br />
 
-[![GitHub release](https://img.shields.io/github/release/doximity/CallWithDoxDialer.svg)](https://github.com/doximity/CallWithDoxDialer/releases) ![platforms](https://img.shields.io/badge/platforms-iOS-lightgrey.svg)
+[![GitHub release](https://img.shields.io/github/release/doximity/CallWithDoxDialer.svg)](https://github.com/doximity/CallWithDoxDialer/releases) ![platforms](https://img.shields.io/badge/platforms-iOS-lightgrey.svg) [![CircleCI](https://dl.circleci.com/status-badge/img/gh/doximity/CallWithDoxDialer/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/doximity/CallWithDoxDialer/tree/master)
 
 
 ## What is DoximityDialerSDK?
