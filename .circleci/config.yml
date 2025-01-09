@@ -23,7 +23,7 @@ jobs:
               --package_path "." \
               --scheme "DoximityDialerSDK" \
               --device "iPhone" \
-              --clean --result_bundle true --output-types "none"
+              --clean --result_bundle true --output-types "junit"
       - run:
           name: Geneerate Test Results
           command: |
