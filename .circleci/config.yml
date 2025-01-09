@@ -16,8 +16,18 @@ jobs:
       xcode: << parameters.xcode-version >>
     steps:
       - checkout
-      - run: fastlane scan --package_path "." --scheme "DoximityDialerSDK" --device "iPhone" --result_bundle true --output-types "" --clean
-      - run: fastlane trainer --path "test_output" --output_directory "test_results"
+      - run:
+          name: Build and Test
+          command: |
+            fastlane scan \
+              --package_path "." \
+              --scheme "DoximityDialerSDK" \
+              --device "iPhone" \
+              --result_bundle true --output-types "" --clean
+      - run:
+          name: Geneerate Test Results
+          command: |
+            fastlane trainer --path "test_output" --output_directory "test_results"
       - store_test_results:
           path: test_results
 
