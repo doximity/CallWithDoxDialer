@@ -1,0 +1,38 @@
+version: 2.1
+
+meta:
+  xcode-versions: &xcode-versions
+      matrix:
+        parameters:
+          xcode-version: ["16.0.0", "16.1.0", "16.2.0"]
+
+jobs:
+  build_and_test:
+    parameters:
+      xcode-version:
+        type: string
+        default: 16.2.0
+    macos:
+      xcode: << parameters.xcode-version >>
+    steps:
+      - checkout
+      - run:
+          name: Build and Test
+          command: |
+            fastlane scan \
+              --package_path "." \
+              --scheme "DoximityDialerSDK" \
+              --device "iPhone" \
+              --clean --result_bundle true --output-types "junit"
+      - run:
+          name: Generate Test Results
+          command: |
+            fastlane trainer --path "test_output" --output_directory "test_results"
+      - store_test_results:
+          path: test_results
+
+workflows:
+  main:
+    jobs:
+      - build_and_test:
+          <<: *xcode-versions

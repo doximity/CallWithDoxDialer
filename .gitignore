@@ -23,3 +23,7 @@ DerivedData/
 
 # OS X
 .DS_Store
+
+# CI
+test_output
+test_results
