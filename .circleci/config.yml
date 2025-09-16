@@ -14,6 +14,7 @@ jobs:
         default: 26.0.0
     macos:
       xcode: << parameters.xcode-version >>
+    resource_class: m4pro.medium
     steps:
       - checkout
       - run:
