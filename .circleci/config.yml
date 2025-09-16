@@ -4,14 +4,14 @@ meta:
   xcode-versions: &xcode-versions
       matrix:
         parameters:
-          xcode-version: ["16.2.0", "16.3.0", "16.4.0"]
+          xcode-version: ["16.3.0", "16.4.0", "26.0.0"]
 
 jobs:
   build_and_test:
     parameters:
       xcode-version:
         type: string
-        default: 16.4.0
+        default: 26.0.0
     macos:
       xcode: << parameters.xcode-version >>
     steps:
