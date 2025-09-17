@@ -17,6 +17,7 @@ jobs:
     resource_class: m4pro.medium
     steps:
       - checkout
+      - run: xcodebuild -version
       - run:
           name: Build and Test
           command: |
