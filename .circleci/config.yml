@@ -24,11 +24,12 @@ jobs:
           name: Set test device
           command: |
             # Use iPhone 17 for Xcode 26.x, iPhone 16 otherwise
+            iphone_num="16"
             if [[ "$XCODE_VERSION" =~ "26" ]]; then
-              echo 'export TEST_DEVICE="iPhone 17"' >> $BASH_ENV
-            else
-              echo 'export TEST_DEVICE="iPhone 16"' >> $BASH_ENV
+              iphone_num="17"
             fi
+            echo "Setting test device to iPhone $iphone_num"
+            echo 'export TEST_DEVICE="iPhone ${iphone_num}"' >> $BASH_ENV
       - run:
           name: Build and Test
           command: |
