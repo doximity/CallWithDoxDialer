@@ -4,27 +4,39 @@ meta:
   xcode-versions: &xcode-versions
       matrix:
         parameters:
-          xcode-version: ["16.3.0", "16.4.0", "26.0.0"]
+          xcode-version: ["16.3", "16.4", "26.0"]
 
 jobs:
   build_and_test:
     parameters:
       xcode-version:
         type: string
-        default: 26.0.0
+        default: "26.0"
     macos:
       xcode: << parameters.xcode-version >>
     resource_class: m4pro.medium
+    environment:
+      XCODE_VERSION: << parameters.xcode-version >>
     steps:
       - checkout
       - run: xcodebuild -version
+      - run:
+          name: Set test device
+          command: |
+            # Use iPhone 17 for Xcode 26.x, iPhone 16 otherwise
+            iphone_num="16"
+            if [[ "$XCODE_VERSION" =~ "26" ]]; then
+              iphone_num="17"
+            fi
+            echo "Setting test device to iPhone $iphone_num"
+            echo "export TEST_DEVICE=\"iPhone $iphone_num\"" >> $BASH_ENV
       - run:
           name: Build and Test
           command: |
             fastlane scan \
               --package_path "." \
               --scheme "DoximityDialerSDK" \
-              --device "iPhone" \
+              --device "$TEST_DEVICE" \
               --clean --result_bundle true --output-types "junit"
       - run:
           name: Generate Test Results
