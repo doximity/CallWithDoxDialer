@@ -15,7 +15,7 @@ public struct DoximityDialer {
         static let doximityScheme = "doximity://"
         static let dialerTargetNumberPath = "dialer/call?target_number="
         static let appsFlyerID = "id393642611"
-        static let budnleID = Bundle.main.bundleIdentifier ?? "com.doximity.dialersdk"
+        static let bundleID = Bundle.main.bundleIdentifier ?? "com.doximity.dialersdk"
     }
 
     private let application: OpenApplicationURL
@@ -29,7 +29,7 @@ public struct DoximityDialer {
     /// - Parameter phoneNumber: The 10-digit phone number `String` to dial
     public func dialPhoneNumber(_ phoneNumber: String) {
         if isDoximityInstalled {
-            guard let dialerURL = URL(string: "\(Constants.doximityScheme)\(Constants.dialerTargetNumberPath)\(phoneNumber)&utm_source=\(Constants.budnleID)") else { return }
+            guard let dialerURL = URL(string: "\(Constants.doximityScheme)\(Constants.dialerTargetNumberPath)\(phoneNumber)&utm_source=\(Constants.bundleID)") else { return }
             openURL(dialerURL)
         } else {
             guard let url = doximityAppStoreURL else { return }
