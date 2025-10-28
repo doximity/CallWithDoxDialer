@@ -4,7 +4,15 @@ import UIKit
 /// A struct to handle dialing phone numbers using the Doximity app.
 public struct DoximityDialer {
     /// Singleton instance of `DoximityDialer`.
-    public static let shared = DoximityDialer()
+    public private(set) static var shared = DoximityDialer()
+
+    #if DEBUG
+    /// Replaces the shared instance with a custom instance for testing. Only available in DEBUG builds.
+    /// - Parameter instance: The test instance to use, or nil to reset to default
+    static func setSharedInstance(_ instance: DoximityDialer?) {
+        shared = instance ?? DoximityDialer()
+    }
+    #endif
 
     /// Errors that can occur when using `DoximityDialer`.
     public enum DoximityDialerError: Error {
@@ -22,26 +30,7 @@ public struct DoximityDialer {
         static let queryItemTargetNumberKey = "target_number"
     }
 
-    private let _application: OpenApplicationURL
-
-    private var application: OpenApplicationURL {
-        #if DEBUG
-        if let testApplication = Self._testApplication {
-            return testApplication
-        }
-        #endif
-        return _application
-    }
-
-    #if DEBUG
-    private static var _testApplication: OpenApplicationURL?
-
-    /// Configures a test application for the shared instance. Only available in DEBUG builds.
-    /// - Parameter application: The mock application to use for testing, or nil to reset to default
-    static func setTestApplication(_ application: OpenApplicationURL?) {
-        _testApplication = application
-    }
-    #endif
+    private let application: OpenApplicationURL
 
     /// Options for how Doximity Dialer should handle the phone number.
     enum Options: Equatable {
@@ -66,7 +55,7 @@ public struct DoximityDialer {
     }
 
     init(application: OpenApplicationURL = UIApplication.shared) {
-        self._application = application
+        self.application = application
     }
 
     /// Prefills a phone number into Doximity Dialer, allowing the user to select the type of call.
