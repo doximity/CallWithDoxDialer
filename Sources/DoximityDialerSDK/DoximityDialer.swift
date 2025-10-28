@@ -12,11 +12,14 @@ public struct DoximityDialer {
         case imageAssetNotFound
     }
 
-    /// Constants used in `DoximityDialer`.
     private enum Constants {
-        static let doximityScheme = "doximity://"
+        static let doximityName = "doximity"
+        static let doximityScheme = "\(doximityName)://"
         static let appsFlyerID = "id393642611"
         static let bundleID = Bundle.main.bundleIdentifier ?? "com.doximity.dialersdk"
+        static let basePath = "/dialer/call"
+        static let queryItemSourceKey = "utm_source"
+        static let queryItemTargetNumberKey = "target_number"
     }
 
     private let application: OpenApplicationURL
@@ -38,13 +41,9 @@ public struct DoximityDialer {
         case startCall(Kind)
 
         var path: String {
-            let base = "/dialer/call"
-
-            return switch self {
-            case .prefill:
-                base
-            case let .startCall(kind):
-                "\(base)/\(kind.rawValue)"
+            switch self {
+            case .prefill: Constants.basePath
+            case let .startCall(kind): "\(Constants.basePath)/\(kind.rawValue)"
             }
         }
     }
@@ -70,11 +69,11 @@ public struct DoximityDialer {
         }
 
         var components = URLComponents()
-        components.scheme = "doximity"
+        components.scheme = Constants.doximityName
         components.path = options.path
         components.queryItems = [
-            URLQueryItem(name: "target_number", value: phoneNumber),
-            URLQueryItem(name: "utm_source", value: Constants.bundleID)
+            URLQueryItem(name: Constants.queryItemTargetNumberKey, value: phoneNumber),
+            URLQueryItem(name: Constants.queryItemSourceKey, value: Constants.bundleID),
         ]
 
         openURL(components.url)
