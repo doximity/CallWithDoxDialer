@@ -164,15 +164,27 @@ private extension DoximityDialer {
 /// Objective-C compatible class for `DoximityDialer`. Used for bridging with Objective-C codebases.
 @objc(DoximityDialer)
 public final class DoximityDialerObjc: NSObject {
-    /// Dials a phone number using Doximity Dialer.
+    /// Prefills a phone number into Doximity Dialer, allow the user to select why type of call to preform.
     ///
-    /// If the Doximity app is installed, opens Doximity Dialer with the specified phone number and options.
+    /// If the Doximity app is installed, opens Doximity Dialer with the specified phone number.
+    /// If the Doximity app is not installed, redirects the user to the App Store to download Doximity.
+    ///
+    /// - Parameter phoneNumber: The phone number to dial (e.g., "5551234567")
+    @objc public static func dialPhoneNumber(_ phoneNumber: String) {
+        DoximityDialer.shared.dialPhoneNumber(phoneNumber, options: .prefill)
+    }
+
+    /// Dials a phone number using Doximity Dialer and automatically starts a call.
+    ///
+    /// If the Doximity app is installed, opens Doximity Dialer with the specified phone number.
     /// If the Doximity app is not installed, redirects the user to the App Store to download Doximity.
     ///
     /// - Parameters:
     ///   - phoneNumber: The phone number to dial (e.g., "5551234567")
-    @objc public static func dialPhoneNumber(_ phoneNumber: String) {
-        DoximityDialer.shared.dialPhoneNumber(phoneNumber)
+    ///   - kind: The type of call to initiate (`.voice` or `.video`)
+    @objc(dialPhoneNumber:kind:)
+    public static func dialPhoneNumber(_ phoneNumber: String, kind: DoximityDialer.Options.Kind) {
+        DoximityDialer.shared.dialPhoneNumber(phoneNumber, options: .startCall(kind))
     }
 
     /// Returns the Doximity icon image.
