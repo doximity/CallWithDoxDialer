@@ -17,7 +17,7 @@ public struct DoximityDialer {
         static let doximityScheme = "\(doximityName)://"
         static let appsFlyerID = "id393642611"
         static let bundleID = Bundle.main.bundleIdentifier ?? "com.doximity.dialersdk"
-        static let basePath = "/dialer/call"
+        static let basePath = "dialer/call"
         static let queryItemSourceKey = "utm_source"
         static let queryItemTargetNumberKey = "target_number"
     }
@@ -25,12 +25,10 @@ public struct DoximityDialer {
     private let application: OpenApplicationURL
 
     /// Options for how Doximity Dialer should handle the phone number.
-    public enum Options: Equatable {
+    enum Options: Equatable {
         /// The type of call to initiate.
-        public enum Kind: String, Equatable {
-            /// Voice call
+        enum Kind: String, Equatable {
             case voice
-            /// Video call
             case video
         }
 
@@ -52,31 +50,57 @@ public struct DoximityDialer {
         self.application = application
     }
 
-    /// Dials a phone number using Doximity Dialer.
+    /// Prefills a phone number into Doximity Dialer, allowing the user to select the type of call.
     ///
-    /// If the Doximity app is installed, opens Doximity Dialer with the specified phone number and options.
+    /// If the Doximity app is installed, opens Doximity Dialer with the specified phone number in prefill mode.
     /// If the Doximity app is not installed, redirects the user to the App Store to download Doximity.
     ///
+    /// - Parameter phoneNumber: The phone number to dial (e.g., "5551234567")
+    public func dialPhoneNumber(_ phoneNumber: String) {
+        dial(phoneNumber, options: .prefill)
+    }
+
+    /// Automatically starts a voice call in Doximity Dialer with the specified phone number.
+    ///
+    /// If the Doximity app is installed, opens Doximity Dialer and automatically initiates a voice call.
+    /// If the Doximity app is not installed, redirects the user to the App Store to download Doximity.
+    ///
+    /// - Parameter phoneNumber: The phone number to call (e.g., "5551234567")
+    public func startVoiceCall(_ phoneNumber: String) {
+        dial(phoneNumber, options: .startCall(.voice))
+    }
+
+    /// Automatically starts a video call in Doximity Dialer with the specified phone number.
+    ///
+    /// If the Doximity app is installed, opens Doximity Dialer and automatically initiates a video call.
+    /// If the Doximity app is not installed, redirects the user to the App Store to download Doximity.
+    ///
+    /// - Parameter phoneNumber: The phone number to call (e.g., "5551234567")
+    public func startVideoCall(_ phoneNumber: String) {
+        dial(phoneNumber, options: .startCall(.video))
+    }
+
+    /// Shared implementation for dialing phone numbers through Doximity Dialer.
+    ///
+    /// Constructs the appropriate deep link URL based on the provided options and opens it.
+    /// If Doximity is not installed, redirects to the App Store instead.
+    ///
     /// - Parameters:
-    ///   - phoneNumber: The phone number to dial (e.g., "5551234567")
-    ///   - options: How to handle the phone number. Defaults to `.prefill` which opens the Doximity Dialer
-    ///              without automatically starting the call. Use `.startCall(.voice)` or `.startCall(.video)`
-    ///              to automatically initiate a voice or video call.
-    public func dialPhoneNumber(_ phoneNumber: String, options: Options = .prefill) {
+    ///   - phoneNumber: The phone number to dial
+    ///   - options: The dialing behavior (prefill or auto-start voice/video call)
+    private func dial(_ phoneNumber: String, options: Options) {
         guard isDoximityInstalled else {
             openURL(doximityAppStoreURL)
             return
         }
 
-        var components = URLComponents()
-        components.scheme = Constants.doximityName
-        components.path = options.path
-        components.queryItems = [
+        var components = URLComponents(string: Constants.doximityScheme + options.path)
+        components?.queryItems = [
             URLQueryItem(name: Constants.queryItemTargetNumberKey, value: phoneNumber),
             URLQueryItem(name: Constants.queryItemSourceKey, value: Constants.bundleID),
         ]
 
-        openURL(components.url)
+        openURL(components?.url)
     }
 
     /// Returns the Doximity icon image.
@@ -162,27 +186,34 @@ private extension DoximityDialer {
 /// Objective-C compatible class for `DoximityDialer`. Used for bridging with Objective-C codebases.
 @objc(DoximityDialer)
 public final class DoximityDialerObjc: NSObject {
-    /// Prefills a phone number into Doximity Dialer, allow the user to select why type of call to preform.
+    /// Prefills a phone number into Doximity Dialer, allowing the user to select the type of call.
     ///
-    /// If the Doximity app is installed, opens Doximity Dialer with the specified phone number.
+    /// If the Doximity app is installed, opens Doximity Dialer with the specified phone number in prefill mode.
     /// If the Doximity app is not installed, redirects the user to the App Store to download Doximity.
     ///
     /// - Parameter phoneNumber: The phone number to dial (e.g., "5551234567")
     @objc public static func dialPhoneNumber(_ phoneNumber: String) {
-        DoximityDialer.shared.dialPhoneNumber(phoneNumber, options: .prefill)
+        DoximityDialer.shared.dialPhoneNumber(phoneNumber)
     }
 
-    /// Dials a phone number using Doximity Dialer and automatically starts a call.
+    /// Automatically starts a voice call in Doximity Dialer with the specified phone number.
     ///
-    /// If the Doximity app is installed, opens Doximity Dialer with the specified phone number.
+    /// If the Doximity app is installed, opens Doximity Dialer and automatically initiates a voice call.
     /// If the Doximity app is not installed, redirects the user to the App Store to download Doximity.
     ///
-    /// - Parameters:
-    ///   - phoneNumber: The phone number to dial (e.g., "5551234567")
-    ///   - kind: The type of call to initiate (`.voice` or `.video`)
-    @objc(dialPhoneNumber:kind:)
-    public static func dialPhoneNumber(_ phoneNumber: String, kind: DoximityDialer.Options.Kind) {
-        DoximityDialer.shared.dialPhoneNumber(phoneNumber, options: .startCall(kind))
+    /// - Parameter phoneNumber: The phone number to call (e.g., "5551234567")
+    @objc public static func startVoiceCall(_ phoneNumber: String) {
+        DoximityDialer.shared.startVoiceCall(phoneNumber)
+    }
+
+    /// Automatically starts a video call in Doximity Dialer with the specified phone number.
+    ///
+    /// If the Doximity app is installed, opens Doximity Dialer and automatically initiates a video call.
+    /// If the Doximity app is not installed, redirects the user to the App Store to download Doximity.
+    ///
+    /// - Parameter phoneNumber: The phone number to call (e.g., "5551234567")
+    @objc public static func startVideoCall(_ phoneNumber: String) {
+        DoximityDialer.shared.startVideoCall(phoneNumber)
     }
 
     /// Returns the Doximity icon image.
