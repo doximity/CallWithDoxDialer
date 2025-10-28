@@ -2,7 +2,7 @@ import Foundation
 import Testing
 @testable import DoximityDialerSDK
 
-@Suite("DoximityDialer Tests")
+@Suite("DoximityDialer Tests", .serialized)
 struct DoximityDialerSDKTests {
 
     // MARK: - dialPhoneNumber Tests
@@ -89,6 +89,44 @@ struct DoximityDialerSDKTests {
         #expect(DoximityDialer.Options.startCall(.video) == DoximityDialer.Options.startCall(.video))
         #expect(DoximityDialer.Options.prefill != DoximityDialer.Options.startCall(.voice))
         #expect(DoximityDialer.Options.startCall(.voice) != DoximityDialer.Options.startCall(.video))
+    }
+
+    // MARK: - Objective-C Bridge Tests
+
+    @Test("Objective-C bridge dials with prefill")
+    func objcBridgePrefill() {
+        let mockApplication = MockApplication()
+        mockApplication.canOpenURL = true
+        DoximityDialer.setTestApplication(mockApplication)
+        defer { DoximityDialer.setTestApplication(nil) }
+
+        DoximityDialerObjc.dialPhoneNumber("5551234567")
+
+        #expect(mockApplication.lastURL == URL(string: "doximity://dialer/call?target_number=5551234567&utm_source=com.apple.dt.xctest.tool"))
+    }
+
+    @Test("Objective-C bridge starts voice call")
+    func objcBridgeStartVoiceCall() {
+        let mockApplication = MockApplication()
+        mockApplication.canOpenURL = true
+        DoximityDialer.setTestApplication(mockApplication)
+        defer { DoximityDialer.setTestApplication(nil) }
+
+        DoximityDialerObjc.startVoiceCall("5551234567")
+
+        #expect(mockApplication.lastURL == URL(string: "doximity://dialer/call/voice?target_number=5551234567&utm_source=com.apple.dt.xctest.tool"))
+    }
+
+    @Test("Objective-C bridge starts video call")
+    func objcBridgeStartVideoCall() {
+        let mockApplication = MockApplication()
+        mockApplication.canOpenURL = true
+        DoximityDialer.setTestApplication(mockApplication)
+        defer { DoximityDialer.setTestApplication(nil) }
+
+        DoximityDialerObjc.startVideoCall("5551234567")
+
+        #expect(mockApplication.lastURL == URL(string: "doximity://dialer/call/video?target_number=5551234567&utm_source=com.apple.dt.xctest.tool"))
     }
 
     // MARK: - Icon Tests

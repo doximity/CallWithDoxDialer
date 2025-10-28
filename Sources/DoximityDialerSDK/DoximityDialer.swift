@@ -22,7 +22,26 @@ public struct DoximityDialer {
         static let queryItemTargetNumberKey = "target_number"
     }
 
-    private let application: OpenApplicationURL
+    private let _application: OpenApplicationURL
+
+    private var application: OpenApplicationURL {
+        #if DEBUG
+        if let testApplication = Self._testApplication {
+            return testApplication
+        }
+        #endif
+        return _application
+    }
+
+    #if DEBUG
+    private static var _testApplication: OpenApplicationURL?
+
+    /// Configures a test application for the shared instance. Only available in DEBUG builds.
+    /// - Parameter application: The mock application to use for testing, or nil to reset to default
+    static func setTestApplication(_ application: OpenApplicationURL?) {
+        _testApplication = application
+    }
+    #endif
 
     /// Options for how Doximity Dialer should handle the phone number.
     enum Options: Equatable {
@@ -47,7 +66,7 @@ public struct DoximityDialer {
     }
 
     init(application: OpenApplicationURL = UIApplication.shared) {
-        self.application = application
+        self._application = application
     }
 
     /// Prefills a phone number into Doximity Dialer, allowing the user to select the type of call.
