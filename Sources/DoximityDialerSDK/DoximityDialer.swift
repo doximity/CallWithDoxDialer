@@ -140,22 +140,17 @@ private extension DoximityDialer {
     /// Doximity icon asset from the swift package resources
     var iconFromPackage: UIImage? {
     #if SWIFT_PACKAGE
-        guard
-            let image = UIImage(
-                named: "icon",
-                in: .module,
-                compatibleWith: nil
-            )
-        else {
-            return UIImage()
-        }
-        return image
+        return UIImage(
+            named: "icon",
+            in: .module,
+            compatibleWith: nil
+        )
     #else
         return nil
     #endif
     }
 
-    /// Doximity icon asset from the `CallWithDoxDialer.bundle` for manual integration
+    /// Doximity icon asset from the `DoximityDialerSDK.bundle` for manual integration
     var iconFromBundle: UIImage? {
         let libraryBundle = Bundle.main
         guard let assetsBundleURL = libraryBundle.url(forResource: "DoximityDialerSDK", withExtension: "bundle") else {
@@ -168,7 +163,16 @@ private extension DoximityDialer {
     }
 
     /// Checks if the Doximity app is installed on the device.
-    var isDoximityInstalled: Bool {
+    ///
+    /// Use this property to conditionally display UI elements or provide different user experiences
+    /// based on whether Doximity is available. For example, you might show or hide a "Call with Doximity"
+    /// button depending on the installation status.
+    ///
+    /// - Note: Your app must include `doximity` in the `LSApplicationQueriesSchemes` array in Info.plist
+    ///         for this property to work correctly. Without this configuration, the property will always return `false`.
+    ///
+    /// - Returns: `true` if the Doximity app is installed and can be opened, `false` otherwise.
+    public var isDoximityInstalled: Bool {
         guard let doximitySchemeURL = URL(string: Constants.doximityScheme) else {
             return false
         }
@@ -222,6 +226,20 @@ public final class DoximityDialerObjc: NSObject {
     /// - Parameter phoneNumber: The phone number to call (e.g., "5551234567")
     @objc public static func startVideoCall(_ phoneNumber: String) {
         DoximityDialer.shared.startVideoCall(phoneNumber)
+    }
+
+    /// Checks if the Doximity app is installed on the device.
+    ///
+    /// Use this method to conditionally display UI elements or provide different user experiences
+    /// based on whether Doximity is available. For example, you might show or hide a "Call with Doximity"
+    /// button depending on the installation status.
+    ///
+    /// - Note: Your app must include `doximity` in the `LSApplicationQueriesSchemes` array in Info.plist
+    ///         for this method to work correctly. Without this configuration, the method will always return `false`.
+    ///
+    /// - Returns: `true` if the Doximity app is installed and can be opened, `false` otherwise.
+    @objc public static func isDoximityInstalled() -> Bool {
+        DoximityDialer.shared.isDoximityInstalled
     }
 
     /// Returns the Doximity icon image.

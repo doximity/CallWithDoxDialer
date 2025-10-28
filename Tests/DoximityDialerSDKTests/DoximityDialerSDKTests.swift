@@ -44,6 +44,20 @@ class `Doximity Dialer Tests` {
         }
     }
 
+    class `Installation Check`: `Doximity Dialer Tests` {
+        @Test
+        func `Returns true when Doximity is installed`() {
+            application.canOpenURL = true
+            #expect(DoximityDialer.shared.isDoximityInstalled == true)
+        }
+
+        @Test
+        func `Returns false when Doximity is not installed`() {
+            application.canOpenURL = false
+            #expect(DoximityDialer.shared.isDoximityInstalled == false)
+        }
+    }
+
     class `Objective C Bridge`: `Doximity Dialer Tests` {
         @Test
         func `Dials with prefill`() {
@@ -72,6 +86,18 @@ class `Doximity Dialer Tests` {
         func `Returns icon as template`() throws {
             let image = try DoximityDialerObjc.doximityIconAsTemplate()
             #expect(image.renderingMode == .alwaysTemplate)
+        }
+
+        @Test
+        func `Checks if Doximity is installed`() {
+            application.canOpenURL = true
+            #expect(DoximityDialerObjc.isDoximityInstalled() == true)
+        }
+
+        @Test
+        func `Checks if Doximity is not installed`() {
+            application.canOpenURL = false
+            #expect(DoximityDialerObjc.isDoximityInstalled() == false)
         }
     }
 
