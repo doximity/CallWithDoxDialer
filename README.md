@@ -128,14 +128,31 @@ do {
 #### Objective-C
 ```objc
 NSError *error = nil;
-UIImage *icon = [DoximityDialer doximityIcon:&error];
+UIImage *icon = [DoximityDialer doximityIconAndReturnError:&error];
 if (error) {
     NSLog(@"Failed to load Doximity icon: %@", error);
 }
 
 // Or for tinted views:
-UIImage *templateIcon = [DoximityDialer doximityIconAsTemplate:&error];
+UIImage *templateIcon = [DoximityDialer doximityIconAsTemplateAndReturnError:&error];
 ```
+
+## Example App
+
+A complete example application is available in the [`Examples/`](Examples/) directory:
+
+**[DoximityDialerExample](Examples/DoximityDialerExample/)** - A unified iOS app demonstrating the SDK in SwiftUI, UIKit (Swift), and UIKit (Objective-C).
+
+The example includes:
+- **Main menu** to choose between SwiftUI, UIKit (Swift), or UIKit (Objective-C) examples
+- **SwiftUI implementation** - Modern declarative UI example
+- **UIKit (Swift) implementation** - Complete UIKit integration example
+- **UIKit (Objective-C) implementation** - Complete Objective-C example
+- **SwiftUI/UIKit/ObjC interop** - Shows how to mix all frameworks and languages
+- Proper Info.plist configuration
+- Installation status checking
+- All call types (prefill, voice, video)
+- Icon loading and display
 
 ## Other Platforms
 
