@@ -29,11 +29,10 @@ public struct DoximityDialer {
     /// - Parameter phoneNumber: The 10-digit phone number `String` to dial
     public func dialPhoneNumber(_ phoneNumber: String) {
         if isDoximityInstalled {
-            guard let dialerURL = URL(string: "\(Constants.doximityScheme)\(Constants.dialerTargetNumberPath)\(phoneNumber)&utm_source=\(Constants.bundleID)") else { return }
+            let dialerURL = URL(string: "\(Constants.doximityScheme)\(Constants.dialerTargetNumberPath)\(phoneNumber)&utm_source=\(Constants.bundleID)")
             openURL(dialerURL)
         } else {
-            guard let url = doximityAppStoreURL else { return }
-            openURL(url)
+            openURL(doximityAppStoreURL)
         }
     }
 
@@ -101,7 +100,8 @@ private extension DoximityDialer {
     }
 
     /// Opens a given URL using the provided `UIApplication`.
-    func openURL(_ url: URL) {
+    func openURL(_ url: URL?) {
+        guard let url else { return }
         application.open(url, options: [:], completionHandler: nil)
     }
 }
