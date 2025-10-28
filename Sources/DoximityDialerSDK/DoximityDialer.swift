@@ -15,7 +15,6 @@ public struct DoximityDialer {
     /// Constants used in `DoximityDialer`.
     private enum Constants {
         static let doximityScheme = "doximity://"
-        static let dialerTargetNumberPath = "dialer/call?target_number="
         static let appsFlyerID = "id393642611"
         static let bundleID = Bundle.main.bundleIdentifier ?? "com.doximity.dialersdk"
     }
