@@ -6,7 +6,9 @@ public struct DoximityDialer {
     /// Singleton instance of `DoximityDialer`.
     public static let shared = DoximityDialer()
 
+    /// Errors that can occur when using `DoximityDialer`.
     public enum DoximityDialerError: Error {
+        /// The Doximity icon image asset could not be found in the SDK bundle or package resources.
         case imageAssetNotFound
     }
 
@@ -52,11 +54,16 @@ public struct DoximityDialer {
         self.application = application
     }
 
-    /// Dials a phone number using the Doximity app if it's installed; otherwise,
-    /// it directs the user to the App Store page for the Doximity app.
+    /// Dials a phone number using Doximity Dialer.
+    ///
+    /// If the Doximity app is installed, opens Doximity Dialer with the specified phone number and options.
+    /// If the Doximity app is not installed, redirects the user to the App Store to download Doximity.
+    ///
     /// - Parameters:
-    ///   - phoneNumber: The 10-digit phone number `String` to dial
-    ///   - options: The dialing option (prefill, voice call, or video call). Defaults to `.prefill`
+    ///   - phoneNumber: The phone number to dial (e.g., "5551234567")
+    ///   - options: How to handle the phone number. Defaults to `.prefill` which opens the Doximity Dialer
+    ///              without automatically starting the call. Use `.startCall(.voice)` or `.startCall(.video)`
+    ///              to automatically initiate a voice or video call.
     public func dialPhoneNumber(_ phoneNumber: String, options: Options = .prefill) {
         guard isDoximityInstalled else {
             openURL(doximityAppStoreURL)
@@ -75,6 +82,9 @@ public struct DoximityDialer {
     }
 
     /// Returns the Doximity icon image.
+    ///
+    /// - Returns: The Doximity icon as a `UIImage`.
+    /// - Throws: `DoximityDialerError.imageAssetNotFound` if the icon cannot be loaded from the SDK resources.
     public func doximityIcon() throws -> UIImage {
         guard let image = iconFromPackage ?? iconFromBundle else {
             throw DoximityDialerError.imageAssetNotFound
@@ -83,6 +93,11 @@ public struct DoximityDialer {
     }
 
     /// Returns the Doximity icon image as a template for UI customization.
+    ///
+    /// The returned image uses `.alwaysTemplate` rendering mode, allowing you to tint it with your app's colors.
+    ///
+    /// - Returns: The Doximity icon as a template `UIImage`.
+    /// - Throws: `DoximityDialerError.imageAssetNotFound` if the icon cannot be loaded from the SDK resources.
     public func doximityIconAsTemplate() throws -> UIImage {
         guard let image = iconFromPackage ?? iconFromBundle else {
             throw DoximityDialerError.imageAssetNotFound
@@ -149,17 +164,31 @@ private extension DoximityDialer {
 /// Objective-C compatible class for `DoximityDialer`. Used for bridging with Objective-C codebases.
 @objc(DoximityDialer)
 public final class DoximityDialerObjc: NSObject {
+    /// Dials a phone number using Doximity Dialer.
+    ///
+    /// If the Doximity app is installed, opens Doximity Dialer with the specified phone number and options.
+    /// If the Doximity app is not installed, redirects the user to the App Store to download Doximity.
+    ///
+    /// - Parameters:
+    ///   - phoneNumber: The phone number to dial (e.g., "5551234567")
     @objc public static func dialPhoneNumber(_ phoneNumber: String) {
         DoximityDialer.shared.dialPhoneNumber(phoneNumber)
     }
 
-    /// Objective-C bridging function that returns the Doximity icon image.
+    /// Returns the Doximity icon image.
+    ///
+    /// - Returns: The Doximity icon as a `UIImage`.
+    /// - Throws: `DoximityDialerError.imageAssetNotFound` if the icon cannot be loaded from the SDK resources.
     @objc public static func doximityIcon() throws -> UIImage {
         try DoximityDialer.shared.doximityIcon()
     }
 
-    /// Objective-C bridging function that returns the Doximity
-    /// icon image as a template for UI customization.
+    /// Returns the Doximity icon image as a template for UI customization.
+    ///
+    /// The returned image uses `.alwaysTemplate` rendering mode, allowing you to tint it with your app's colors.
+    ///
+    /// - Returns: The Doximity icon as a template `UIImage`.
+    /// - Throws: `DoximityDialerError.imageAssetNotFound` if the icon cannot be loaded from the SDK resources.
     @objc public static func doximityIconAsTemplate() throws -> UIImage {
         try DoximityDialer.shared.doximityIconAsTemplate()
     }
