@@ -34,7 +34,7 @@ class `Doximity Dialer Tests` {
             application.canOpenURL = false
 
             DoximityDialer.shared.dialPhoneNumber("5551234567")
-            #expect(application.lastURL == URL(string: "https://app.appsflyer.com/id393642611?pid=third_party_app&c=Unknown"))
+            #expect(application.lastURL == URL(string: "https://doximity.sng.link/Az2j3/c17w?_dl=https://www.doximity.com/dialer/home&_smtype=3&pid=third_party_app&c=Unknown"))
         }
 
         @Test

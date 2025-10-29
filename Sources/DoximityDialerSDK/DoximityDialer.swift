@@ -23,7 +23,6 @@ public struct DoximityDialer {
     private enum Constants {
         static let doximityName = "doximity"
         static let doximityScheme = "\(doximityName)://"
-        static let appsFlyerID = "id393642611"
         static let bundleID = Bundle.main.bundleIdentifier ?? "com.doximity.dialersdk"
         static let basePath = "dialer/call"
         static let queryItemSourceKey = "utm_source"
@@ -183,7 +182,8 @@ private extension DoximityDialer {
     var doximityAppStoreURL: URL? {
         let appName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "Unknown"
         let appIdentifyingName = appName.replacingOccurrences(of: " ", with: "-")
-        return URL(string: "https://app.appsflyer.com/\(Constants.appsFlyerID)?pid=third_party_app&c=\(appIdentifyingName)")
+
+        return URL(string: "https://doximity.sng.link/Az2j3/c17w?_dl=https://www.doximity.com/dialer/home&_smtype=3&pid=third_party_app&c=\(appIdentifyingName)")
     }
 
     /// Opens a given URL using the provided `UIApplication`.
