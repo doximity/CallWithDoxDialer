@@ -111,6 +111,23 @@ public struct DoximityDialer {
         openURL(components?.url)
     }
 
+    /// Checks if the Doximity app is installed on the device.
+    ///
+    /// Use this property to conditionally display UI elements or provide different user experiences
+    /// based on whether Doximity is available. For example, you might show or hide a "Call with Doximity"
+    /// button depending on the installation status.
+    ///
+    /// - Note: Your app must include `doximity` in the `LSApplicationQueriesSchemes` array in Info.plist
+    ///         for this property to work correctly. Without this configuration, the property will always return `false`.
+    ///
+    /// - Returns: `true` if the Doximity app is installed and can be opened, `false` otherwise.
+    public var isDoximityInstalled: Bool {
+        guard let doximitySchemeURL = URL(string: Constants.doximityScheme) else {
+            return false
+        }
+        return application.canOpenURL(doximitySchemeURL)
+    }
+
     /// Returns the Doximity icon image.
     ///
     /// - Returns: The Doximity icon as a `UIImage`.
@@ -160,23 +177,6 @@ private extension DoximityDialer {
         let doximityIcon = UIImage(named: "icon", in: assetsBundle, with: nil)
 
         return doximityIcon
-    }
-
-    /// Checks if the Doximity app is installed on the device.
-    ///
-    /// Use this property to conditionally display UI elements or provide different user experiences
-    /// based on whether Doximity is available. For example, you might show or hide a "Call with Doximity"
-    /// button depending on the installation status.
-    ///
-    /// - Note: Your app must include `doximity` in the `LSApplicationQueriesSchemes` array in Info.plist
-    ///         for this property to work correctly. Without this configuration, the property will always return `false`.
-    ///
-    /// - Returns: `true` if the Doximity app is installed and can be opened, `false` otherwise.
-    public var isDoximityInstalled: Bool {
-        guard let doximitySchemeURL = URL(string: Constants.doximityScheme) else {
-            return false
-        }
-        return application.canOpenURL(doximitySchemeURL)
     }
 
     /// URL for the Doximity app in the App Store, including app-specific parameters for tracking.
