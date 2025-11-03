@@ -3,34 +3,34 @@ import Testing
 @testable import DoximityDialerSDK
 
 @Suite(.serialized)
-class `Doximity Dialer Tests` {
+class DoximityDialerTests {
     let application = MockApplication()
 
     init() {
         DoximityDialer.setSharedInstance(DoximityDialer(application: application))
     }
 
-    class `Core Functionality`: `Doximity Dialer Tests` {
+    class CoreFunctionality: DoximityDialerTests {
         @Test
-        func `Dials with prefill`() {
+        func testDialsWithPrefill() {
             DoximityDialer.shared.dialPhoneNumber("5551234567")
             #expect(application.lastURL == URL(string: "doximity://dialer/call?target_number=5551234567&utm_source=com.apple.dt.xctest.tool"))
         }
 
         @Test
-        func `Starts voice call`() {
+        func testStartsVoiceCall() {
             DoximityDialer.shared.startVoiceCall("5551234567")
             #expect(application.lastURL == URL(string: "doximity://dialer/call/voice?target_number=5551234567&utm_source=com.apple.dt.xctest.tool"))
         }
 
         @Test
-        func `Starts video call`() {
+        func testStartsVideoCall() {
             DoximityDialer.shared.startVideoCall("5551234567")
             #expect(application.lastURL == URL(string: "doximity://dialer/call/video?target_number=5551234567&utm_source=com.apple.dt.xctest.tool"))
         }
 
         @Test
-        func `Redirects when not installed`() {
+        func testRedirectsWhenNotInstalled() {
             application.canOpenURL = false
 
             DoximityDialer.shared.dialPhoneNumber("5551234567")
@@ -38,97 +38,97 @@ class `Doximity Dialer Tests` {
         }
 
         @Test
-        func `Encodes special characters`() {
+        func testEncodesSpecialCharacters() {
             DoximityDialer.shared.dialPhoneNumber("+1 (555) 123-4567")
             #expect(application.lastURL == URL(string: "doximity://dialer/call?target_number=+1%20(555)%20123-4567&utm_source=com.apple.dt.xctest.tool"))
         }
     }
 
-    class `Installation Check`: `Doximity Dialer Tests` {
+    class InstallationCheck: DoximityDialerTests {
         @Test
-        func `Returns true when installed`() {
+        func testReturnsTrueWhenInstalled() {
             application.canOpenURL = true
             #expect(DoximityDialer.shared.isDoximityInstalled == true)
         }
 
         @Test
-        func `Returns false when not installed`() {
+        func testReturnsFalseWhenNotInstalled() {
             application.canOpenURL = false
             #expect(DoximityDialer.shared.isDoximityInstalled == false)
         }
     }
 
-    class Icon: `Doximity Dialer Tests` {
+    class Icon: DoximityDialerTests {
         @Test
-        func `Returns icon`() throws {
+        func testReturnsIcon() throws {
             _ = try DoximityDialer.shared.doximityIcon()
         }
 
         @Test
-        func `Returns icon as template`() throws {
+        func testReturnsIconAsTemplate() throws {
             let image = try DoximityDialer.shared.doximityIconAsTemplate()
             #expect(image.renderingMode == .alwaysTemplate)
         }
     }
 
-    class Options: `Doximity Dialer Tests` {
+    class Options: DoximityDialerTests {
         @Test
-        func `Prefill path`() {
+        func testPrefillPath() {
             let options = DoximityDialer.Options.prefill
             #expect(options.path == "dialer/call")
         }
 
         @Test
-        func `Voice call path`() {
+        func testVoiceCallPath() {
             let options = DoximityDialer.Options.startCall(.voice)
             #expect(options.path == "dialer/call/voice")
         }
 
         @Test
-        func `Video call path`() {
+        func testVideoCallPath() {
             let options = DoximityDialer.Options.startCall(.video)
             #expect(options.path == "dialer/call/video")
         }
     }
 
-    class `Objective C Bridge`: `Doximity Dialer Tests` {
+    class ObjectiveCBridge: DoximityDialerTests {
         @Test
-        func `Dials with prefill`() {
+        func testDialsWithPrefill() {
             DoximityDialerObjc.dialPhoneNumber("5551234567")
             #expect(application.lastURL == URL(string: "doximity://dialer/call?target_number=5551234567&utm_source=com.apple.dt.xctest.tool"))
         }
 
         @Test
-        func `Starts voice call`() {
+        func testStartsVoiceCall() {
             DoximityDialerObjc.startVoiceCall("5551234567")
             #expect(application.lastURL == URL(string: "doximity://dialer/call/voice?target_number=5551234567&utm_source=com.apple.dt.xctest.tool"))
         }
 
         @Test
-        func `Starts video call`() {
+        func testStartsVideoCall() {
             DoximityDialerObjc.startVideoCall("5551234567")
             #expect(application.lastURL == URL(string: "doximity://dialer/call/video?target_number=5551234567&utm_source=com.apple.dt.xctest.tool"))
         }
 
         @Test
-        func `Returns true when installed`() {
+        func testReturnsTrueWhenInstalled() {
             application.canOpenURL = true
             #expect(DoximityDialerObjc.isDoximityInstalled() == true)
         }
 
         @Test
-        func `Returns false when not installed`() {
+        func testReturnsFalseWhenNotInstalled() {
             application.canOpenURL = false
             #expect(DoximityDialerObjc.isDoximityInstalled() == false)
         }
 
         @Test
-        func `Returns icon`() throws {
+        func testReturnsIcon() throws {
             _ = try DoximityDialerObjc.doximityIcon()
         }
 
         @Test
-        func `Returns icon as template`() throws {
+        func testReturnsIconAsTemplate() throws {
             let image = try DoximityDialerObjc.doximityIconAsTemplate()
             #expect(image.renderingMode == .alwaysTemplate)
         }
