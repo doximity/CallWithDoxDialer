@@ -26,11 +26,16 @@
     [self setupActions];
     [self loadDoximityIcon];
     [self updateUIForInstallationStatus];
+    [self setupNotificationObservers];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self updateUIForInstallationStatus];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Setup
@@ -211,6 +216,13 @@
     [self.view addGestureRecognizer:tapGesture];
 }
 
+- (void)setupNotificationObservers {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleAppDidBecomeActive)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+}
+
 #pragma mark - Doximity Icon
 
 - (void)loadDoximityIcon {
@@ -249,6 +261,10 @@
         self.statusLabel.text = @"Doximity is not installed\nInstall it to make calls";
         self.statusLabel.textColor = UIColor.systemRedColor;
     }
+}
+
+- (void)handleAppDidBecomeActive {
+    [self updateUIForInstallationStatus];
 }
 
 #pragma mark - Actions

@@ -14,12 +14,12 @@ This unified example app includes:
 
 ### SDK Features Demonstrated
 
-✅ Installation status checking
-✅ Prefill mode (let user choose call type)
-✅ Auto-start voice calls
-✅ Auto-start video calls
-✅ Icon loading and display
-✅ Proper Info.plist configuration
+- ✅ Installation status checking
+- ✅ Prefill mode (let user choose call type)
+- ✅ Auto-start voice calls
+- ✅ Auto-start video calls
+- ✅ Icon loading and display
+- ✅ Proper Info.plist configuration
 
 ## Running the Example
 

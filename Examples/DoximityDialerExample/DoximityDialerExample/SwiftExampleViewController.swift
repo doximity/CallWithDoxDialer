@@ -124,11 +124,16 @@ class SwiftExampleViewController: UIViewController {
         setupActions()
         loadDoximityIcon()
         updateUIForInstallationStatus()
+        setupNotificationObservers()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateUIForInstallationStatus()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     // MARK: - Setup
@@ -226,6 +231,15 @@ class SwiftExampleViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
 
+    private func setupNotificationObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleAppDidBecomeActive),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
+    }
+
     // MARK: - Doximity Icon
 
     private func loadDoximityIcon() {
@@ -263,6 +277,10 @@ class SwiftExampleViewController: UIViewController {
             statusLabel.text = "Doximity is not installed\nInstall it to make calls"
             statusLabel.textColor = .systemRed
         }
+    }
+
+    @objc private func handleAppDidBecomeActive() {
+        updateUIForInstallationStatus()
     }
 
     // MARK: - Actions

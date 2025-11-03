@@ -94,11 +94,16 @@ class MainMenuViewController: UIViewController {
         setupActions()
         loadDoximityIcon()
         updateInstallationStatus()
+        setupNotificationObservers()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateInstallationStatus()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     // MARK: - Setup
@@ -169,6 +174,15 @@ class MainMenuViewController: UIViewController {
         objcExampleButton.addTarget(self, action: #selector(didTapObjCExample), for: .touchUpInside)
     }
 
+    private func setupNotificationObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleAppDidBecomeActive),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
+    }
+
     private func loadDoximityIcon() {
         do {
             let icon = try DoximityDialer.shared.doximityIcon()
@@ -189,6 +203,10 @@ class MainMenuViewController: UIViewController {
             statusLabel.text = "Doximity is not installed"
             statusLabel.textColor = .systemOrange
         }
+    }
+
+    @objc private func handleAppDidBecomeActive() {
+        updateInstallationStatus()
     }
 
     // MARK: - Actions
