@@ -4,7 +4,7 @@ meta:
   xcode-versions: &xcode-versions
       matrix:
         parameters:
-          xcode-version: ["26.3", "26.4", "26.5"]
+          xcode-version: ["26.4", "26.5", "26.6"]
 
 jobs:
   build_and_test:
